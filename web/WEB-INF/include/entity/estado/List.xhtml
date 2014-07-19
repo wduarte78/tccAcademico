@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EstadoListForm">
+
+        <p:panel header="#{myBundle.ListEstadoTitle}">
+            <p:contextMenu id="EstadoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('EstadoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('EstadoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('EstadoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('EstadoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.EstadoMenuItem_cidadeCollection}" icon="ui-icon-search"  action="#{estadoController.navigateCidadeCollection}" disabled="#{empty estadoController.selected.cidadeCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.EstadoMenuItem_codPais}" icon="ui-icon-search"  actionListener="#{estadoController.prepareCodPais}" update=":PaisViewForm" oncomplete="PaisViewDialog.show()" disabled="#{empty estadoController.selected.codPais}"/>  
+                <p:menuitem value="#{myBundle.EstadoMenuItem_enderecoCollection}" icon="ui-icon-search"  action="#{estadoController.navigateEnderecoCollection}" disabled="#{empty estadoController.selected.enderecoCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{estadoController.items}"
+                         var="item"
+                         rowKey="#{item.codEstado}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{estadoController.selected}">
+
+                <p:ajax event="rowSelect"   update=":EstadoListForm:createButton :EstadoListForm:viewButton :EstadoListForm:editButton :EstadoListForm:deleteButton :EstadoListForm:EstadoDataTableContextMenu" listener="#{estadoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":EstadoListForm:createButton :EstadoListForm:viewButton :EstadoListForm:editButton :EstadoListForm:deleteButton :EstadoListForm:EstadoDataTableContextMenu" listener="#{estadoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('EstadoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.codEstado}" filterBy="#{item.codEstado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEstadoTitle_codEstado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codEstado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.sglEstado}" filterBy="#{item.sglEstado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEstadoTitle_sglEstado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.sglEstado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nomEstado}" filterBy="#{item.nomEstado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEstadoTitle_nomEstado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nomEstado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.codPais.codPais}" filterBy="#{item.codPais.codPais}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEstadoTitle_codPais}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codPais.codPais}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{estadoController.prepareCreate}" update=":EstadoCreateForm" oncomplete="EstadoCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":EstadoViewForm" oncomplete="EstadoViewDialog.show()" disabled="#{empty estadoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":EstadoEditForm" oncomplete="EstadoEditDialog.show()" disabled="#{empty estadoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{estadoController.delete}" update=":growl,datalist" disabled="#{empty estadoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EnderecoListForm">
+
+        <p:panel header="#{myBundle.ListEnderecoTitle}">
+            <p:contextMenu id="EnderecoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('EnderecoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('EnderecoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('EnderecoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('EnderecoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.EnderecoMenuItem_fornecedorCollection}" icon="ui-icon-search"  action="#{enderecoController.navigateFornecedorCollection}" disabled="#{empty enderecoController.selected.fornecedorCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.EnderecoMenuItem_funcionarioCollection}" icon="ui-icon-search"  action="#{enderecoController.navigateFuncionarioCollection}" disabled="#{empty enderecoController.selected.funcionarioCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.EnderecoMenuItem_codPais}" icon="ui-icon-search"  actionListener="#{enderecoController.prepareCodPais}" update=":PaisViewForm" oncomplete="PaisViewDialog.show()" disabled="#{empty enderecoController.selected.codPais}"/>  
+                <p:menuitem value="#{myBundle.EnderecoMenuItem_codEstado}" icon="ui-icon-search"  actionListener="#{enderecoController.prepareCodEstado}" update=":EstadoViewForm" oncomplete="EstadoViewDialog.show()" disabled="#{empty enderecoController.selected.codEstado}"/>  
+                <p:menuitem value="#{myBundle.EnderecoMenuItem_codCidade}" icon="ui-icon-search"  actionListener="#{enderecoController.prepareCodCidade}" update=":CidadeViewForm" oncomplete="CidadeViewDialog.show()" disabled="#{empty enderecoController.selected.codCidade}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{enderecoController.items}"
+                         var="item"
+                         rowKey="#{item.idEndereco}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{enderecoController.selected}">
+
+                <p:ajax event="rowSelect"   update=":EnderecoListForm:createButton :EnderecoListForm:viewButton :EnderecoListForm:editButton :EnderecoListForm:deleteButton :EnderecoListForm:EnderecoDataTableContextMenu" listener="#{enderecoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":EnderecoListForm:createButton :EnderecoListForm:viewButton :EnderecoListForm:editButton :EnderecoListForm:deleteButton :EnderecoListForm:EnderecoDataTableContextMenu" listener="#{enderecoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('EnderecoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idEndereco}" filterBy="#{item.idEndereco}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEnderecoTitle_idEndereco}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEndereco}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.logradouro}" filterBy="#{item.logradouro}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEnderecoTitle_logradouro}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.logradouro}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.complemento}" filterBy="#{item.complemento}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEnderecoTitle_complemento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.complemento}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cep}" filterBy="#{item.cep}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEnderecoTitle_cep}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cep}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.bairro}" filterBy="#{item.bairro}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEnderecoTitle_bairro}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.bairro}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.num}" filterBy="#{item.num}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEnderecoTitle_num}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.num}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.codPais.codPais}" filterBy="#{item.codPais.codPais}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEnderecoTitle_codPais}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.codPais.codPais}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.codEstado.codEstado}" filterBy="#{item.codEstado.codEstado}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEnderecoTitle_codEstado}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.codEstado.codEstado}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.codCidade.codCidade}" filterBy="#{item.codCidade.codCidade}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEnderecoTitle_codCidade}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.codCidade.codCidade}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{enderecoController.prepareCreate}" update=":EnderecoCreateForm" oncomplete="EnderecoCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":EnderecoViewForm" oncomplete="EnderecoViewDialog.show()" disabled="#{empty enderecoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":EnderecoEditForm" oncomplete="EnderecoEditDialog.show()" disabled="#{empty enderecoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{enderecoController.delete}" update=":growl,datalist" disabled="#{empty enderecoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

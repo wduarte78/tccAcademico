@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ClasseListForm">
+
+        <p:panel header="#{myBundle.ListClasseTitle}">
+            <p:contextMenu id="ClasseDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ClasseListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ClasseListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ClasseListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ClasseListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ClasseMenuItem_produtoCollection}" icon="ui-icon-search"  action="#{classeController.navigateProdutoCollection}" disabled="#{empty classeController.selected.produtoCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClasseMenuItem_embalagemCollection}" icon="ui-icon-search"  action="#{classeController.navigateEmbalagemCollection}" disabled="#{empty classeController.selected.embalagemCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClasseMenuItem_movimentacaoCollection}" icon="ui-icon-search"  action="#{classeController.navigateMovimentacaoCollection}" disabled="#{empty classeController.selected.movimentacaoCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClasseMenuItem_detalheNotaCollection}" icon="ui-icon-search"  action="#{classeController.navigateDetalheNotaCollection}" disabled="#{empty classeController.selected.detalheNotaCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClasseMenuItem_localOperacaoCollection}" icon="ui-icon-search"  action="#{classeController.navigateLocalOperacaoCollection}" disabled="#{empty classeController.selected.localOperacaoCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClasseMenuItem_idLegenda}" icon="ui-icon-search"  actionListener="#{classeController.prepareIdLegenda}" update=":LegendaViewForm" oncomplete="LegendaViewDialog.show()" disabled="#{empty classeController.selected.idLegenda}"/>  
+                <p:menuitem value="#{myBundle.ClasseMenuItem_armazemCollection}" icon="ui-icon-search"  action="#{classeController.navigateArmazemCollection}" disabled="#{empty classeController.selected.armazemCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{classeController.items}"
+                         var="item"
+                         rowKey="#{item.idClasse}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{classeController.selected}">
+
+                <p:ajax event="rowSelect"   update=":ClasseListForm:createButton :ClasseListForm:viewButton :ClasseListForm:editButton :ClasseListForm:deleteButton :ClasseListForm:ClasseDataTableContextMenu" listener="#{classeController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":ClasseListForm:createButton :ClasseListForm:viewButton :ClasseListForm:editButton :ClasseListForm:deleteButton :ClasseListForm:ClasseDataTableContextMenu" listener="#{classeController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ClasseListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idClasse}" filterBy="#{item.idClasse}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClasseTitle_idClasse}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idClasse}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.classe}" filterBy="#{item.classe}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClasseTitle_classe}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.classe}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.legenda}" filterBy="#{item.legenda}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClasseTitle_legenda}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.legenda}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.compatibilidade}" filterBy="#{item.compatibilidade}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClasseTitle_compatibilidade}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.compatibilidade}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subclasse}" filterBy="#{item.subclasse}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClasseTitle_subclasse}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subclasse}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descricao}" filterBy="#{item.descricao}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClasseTitle_descricao}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descricao}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.idLegenda.legDescricao}" filterBy="#{item.idLegenda.legDescricao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListClasseTitle_idLegenda}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idLegenda.legDescricao}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{classeController.prepareCreate}" update=":ClasseCreateForm" oncomplete="ClasseCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ClasseViewForm" oncomplete="ClasseViewDialog.show()" disabled="#{empty classeController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ClasseEditForm" oncomplete="ClasseEditDialog.show()" disabled="#{empty classeController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{classeController.delete}" update=":growl,datalist" disabled="#{empty classeController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

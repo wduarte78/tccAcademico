@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PtFulgorEditDlg" widgetVar="PtFulgorEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPtFulgorTitle}" closeOnEscape="true">
+
+            <h:form id="PtFulgorEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{ptFulgorController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditPtFulgorLabel_idPtFulgor}" for="idPtFulgor" />
+                        <h:outputText id="idPtFulgor" value="#{ptFulgorController.selected.idPtFulgor}" />
+
+                        <p:outputLabel value="#{myBundle.EditPtFulgorLabel_ptFulgMin}" for="ptFulgMin" />
+                        <p:inputText id="ptFulgMin" value="#{ptFulgorController.selected.ptFulgMin}" title="#{myBundle.EditPtFulgorTitle_ptFulgMin}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPtFulgorLabel_ptFulgMax}" for="ptFulgMax" />
+                        <p:inputText id="ptFulgMax" value="#{ptFulgorController.selected.ptFulgMax}" title="#{myBundle.EditPtFulgorTitle_ptFulgMax}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPtFulgorLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{ptFulgorController.selected.descricao}" title="#{myBundle.EditPtFulgorTitle_descricao}" required="true" requiredMessage="#{myBundle.EditPtFulgorRequiredMessage_descricao}" size="40" maxlength="40"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ptFulgorController.save}" value="#{myBundle.Save}" update="display,:PtFulgorListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PtFulgorEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PtFulgorEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

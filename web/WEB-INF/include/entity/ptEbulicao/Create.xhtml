@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PtEbulicaoCreateDlg" widgetVar="PtEbulicaoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePtEbulicaoTitle}" closeOnEscape="true">
+
+            <h:form id="PtEbulicaoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{ptEbulicaoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePtEbulicaoLabel_ptEbuliMin}" for="ptEbuliMin" />
+                        <p:inputText id="ptEbuliMin" value="#{ptEbulicaoController.selected.ptEbuliMin}" title="#{myBundle.CreatePtEbulicaoTitle_ptEbuliMin}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePtEbulicaoLabel_ptEbuliMax}" for="ptEbuliMax" />
+                        <p:inputText id="ptEbuliMax" value="#{ptEbulicaoController.selected.ptEbuliMax}" title="#{myBundle.CreatePtEbulicaoTitle_ptEbuliMax}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePtEbulicaoLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{ptEbulicaoController.selected.descricao}" title="#{myBundle.CreatePtEbulicaoTitle_descricao}" required="true" requiredMessage="#{myBundle.CreatePtEbulicaoRequiredMessage_descricao}" size="40" maxlength="40"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ptEbulicaoController.saveNew}" value="#{myBundle.Save}" update="display,:PtEbulicaoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PtEbulicaoCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PtEbulicaoCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

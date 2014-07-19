@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EndArmazemListForm">
+
+        <p:panel header="#{myBundle.ListEndArmazemTitle}">
+            <p:contextMenu id="EndArmazemDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('EndArmazemListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('EndArmazemListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('EndArmazemListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('EndArmazemListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.EndArmazemMenuItem_armazemCollection}" icon="ui-icon-search"  action="#{endArmazemController.navigateArmazemCollection}" disabled="#{empty endArmazemController.selected.armazemCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{endArmazemController.items}"
+                         var="item"
+                         rowKey="#{item.idEnderecamento}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{endArmazemController.selected}">
+
+                <p:ajax event="rowSelect"   update=":EndArmazemListForm:createButton :EndArmazemListForm:viewButton :EndArmazemListForm:editButton :EndArmazemListForm:deleteButton :EndArmazemListForm:EndArmazemDataTableContextMenu" listener="#{endArmazemController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":EndArmazemListForm:createButton :EndArmazemListForm:viewButton :EndArmazemListForm:editButton :EndArmazemListForm:deleteButton :EndArmazemListForm:EndArmazemDataTableContextMenu" listener="#{endArmazemController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('EndArmazemListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idEnderecamento}" filterBy="#{item.idEnderecamento}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEndArmazemTitle_idEnderecamento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEnderecamento}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.identificacao}" filterBy="#{item.identificacao}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEndArmazemTitle_identificacao}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.identificacao}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cor}" filterBy="#{item.cor}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEndArmazemTitle_cor}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cor}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ruaArmazem}" filterBy="#{item.ruaArmazem}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEndArmazemTitle_ruaArmazem}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ruaArmazem}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.lado}" filterBy="#{item.lado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEndArmazemTitle_lado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nivel}" filterBy="#{item.nivel}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEndArmazemTitle_nivel}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nivel}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.posicao}" filterBy="#{item.posicao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEndArmazemTitle_posicao}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.posicao}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{endArmazemController.prepareCreate}" update=":EndArmazemCreateForm" oncomplete="EndArmazemCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":EndArmazemViewForm" oncomplete="EndArmazemViewDialog.show()" disabled="#{empty endArmazemController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":EndArmazemEditForm" oncomplete="EndArmazemEditDialog.show()" disabled="#{empty endArmazemController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{endArmazemController.delete}" update=":growl,datalist" disabled="#{empty endArmazemController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

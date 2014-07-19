@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ToxidadeViewDlg" widgetVar="ToxidadeViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewToxidadeTitle}" closeOnEscape="true">
+
+            <h:form id="ToxidadeViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{toxidadeController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewToxidadeLabel_idToxidade}"/>
+                        <h:outputText value="#{toxidadeController.selected.idToxidade}" title="#{myBundle.ViewToxidadeTitle_idToxidade}"/>
+
+                        <h:outputText value="#{myBundle.ViewToxidadeLabel_toxMin}"/>
+                        <h:outputText value="#{toxidadeController.selected.toxMin}" title="#{myBundle.ViewToxidadeTitle_toxMin}"/>
+
+                        <h:outputText value="#{myBundle.ViewToxidadeLabel_toxMax}"/>
+                        <h:outputText value="#{toxidadeController.selected.toxMax}" title="#{myBundle.ViewToxidadeTitle_toxMax}"/>
+
+                        <h:outputText value="#{myBundle.ViewToxidadeLabel_descricao}"/>
+                        <h:outputText value="#{toxidadeController.selected.descricao}" title="#{myBundle.ViewToxidadeTitle_descricao}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="ToxidadeViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

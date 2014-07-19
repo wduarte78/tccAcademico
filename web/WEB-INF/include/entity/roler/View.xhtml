@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RolerViewDlg" widgetVar="RolerViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewRolerTitle}" closeOnEscape="true">
+
+            <h:form id="RolerViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{rolerController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewRolerLabel_idRole}"/>
+                        <h:outputText value="#{rolerController.selected.idRole}" title="#{myBundle.ViewRolerTitle_idRole}"/>
+
+                        <h:outputText value="#{myBundle.ViewRolerLabel_nomerole}"/>
+                        <h:outputText value="#{rolerController.selected.nomerole}" title="#{myBundle.ViewRolerTitle_nomerole}"/>
+
+                        <h:outputText value="#{myBundle.ViewRolerLabel_usersCollection}"/>
+                        <h:selectManyMenu converter="usersConverter">
+                            <f:selectItems value="#{rolerController.selected.usersCollection}"
+                                           var="usersCollectionItem"
+                                           itemValue="#{usersCollectionItem}"
+                                           itemLabel="#{usersCollectionItem.username.toString()}"
+                                           />
+
+                        </h:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="RolerViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

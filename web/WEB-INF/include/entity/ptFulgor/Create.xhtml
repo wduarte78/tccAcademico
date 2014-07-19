@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PtFulgorCreateDlg" widgetVar="PtFulgorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePtFulgorTitle}" closeOnEscape="true">
+
+            <h:form id="PtFulgorCreateForm">
+
+                <h:panelGroup id="display" rendered="#{ptFulgorController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePtFulgorLabel_ptFulgMin}" for="ptFulgMin" />
+                        <p:inputText id="ptFulgMin" value="#{ptFulgorController.selected.ptFulgMin}" title="#{myBundle.CreatePtFulgorTitle_ptFulgMin}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePtFulgorLabel_ptFulgMax}" for="ptFulgMax" />
+                        <p:inputText id="ptFulgMax" value="#{ptFulgorController.selected.ptFulgMax}" title="#{myBundle.CreatePtFulgorTitle_ptFulgMax}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePtFulgorLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{ptFulgorController.selected.descricao}" title="#{myBundle.CreatePtFulgorTitle_descricao}" required="true" requiredMessage="#{myBundle.CreatePtFulgorRequiredMessage_descricao}" size="40" maxlength="40"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ptFulgorController.saveNew}" value="#{myBundle.Save}" update="display,:PtFulgorListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PtFulgorCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PtFulgorCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ProdutoListForm">
+
+        <p:panel header="#{myBundle.ListProdutoTitle}">
+            <p:contextMenu id="ProdutoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ProdutoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ProdutoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ProdutoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ProdutoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ProdutoMenuItem_idNumOnu}" icon="ui-icon-search"  actionListener="#{produtoController.prepareIdNumOnu}" update=":NumOnuViewForm" oncomplete="NumOnuViewDialog.show()" disabled="#{empty produtoController.selected.idNumOnu}"/>  
+                <p:menuitem value="#{myBundle.ProdutoMenuItem_idFornecedor}" icon="ui-icon-search"  actionListener="#{produtoController.prepareIdFornecedor}" update=":FornecedorViewForm" oncomplete="FornecedorViewDialog.show()" disabled="#{empty produtoController.selected.idFornecedor}"/>  
+                <p:menuitem value="#{myBundle.ProdutoMenuItem_idClasse}" icon="ui-icon-search"  actionListener="#{produtoController.prepareIdClasse}" update=":ClasseViewForm" oncomplete="ClasseViewDialog.show()" disabled="#{empty produtoController.selected.idClasse}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{produtoController.items}"
+                         var="item"
+                         rowKey="#{item.idProduto}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{produtoController.selected}">
+
+                <p:ajax event="rowSelect"   update=":ProdutoListForm:createButton :ProdutoListForm:viewButton :ProdutoListForm:editButton :ProdutoListForm:deleteButton :ProdutoListForm:ProdutoDataTableContextMenu" listener="#{produtoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":ProdutoListForm:createButton :ProdutoListForm:viewButton :ProdutoListForm:editButton :ProdutoListForm:deleteButton :ProdutoListForm:ProdutoDataTableContextMenu" listener="#{produtoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ProdutoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idProduto}" filterBy="#{item.idProduto}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProdutoTitle_idProduto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idProduto}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nomeProduto}" filterBy="#{item.nomeProduto}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProdutoTitle_nomeProduto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nomeProduto}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nomegenerico}" filterBy="#{item.nomegenerico}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProdutoTitle_nomegenerico}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nomegenerico}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.origem}" filterBy="#{item.origem}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProdutoTitle_origem}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.origem}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.numcas}" filterBy="#{item.numcas}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProdutoTitle_numcas}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.numcas}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.rotuloproduto}" filterBy="#{item.rotuloproduto}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProdutoTitle_rotuloproduto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.rotuloproduto}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.painelseg}" filterBy="#{item.painelseg}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_painelseg}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.painelseg}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.risco}" filterBy="#{item.risco}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_risco}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.risco}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.acoesemergencia}" filterBy="#{item.acoesemergencia}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_acoesemergencia}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.acoesemergencia}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.numlote}" filterBy="#{item.numlote}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_numlote}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.numlote}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.dtfabricacao}" filterBy="#{item.dtfabricacao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_dtfabricacao}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.dtfabricacao}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.dtvalidade}" filterBy="#{item.dtvalidade}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_dtvalidade}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.dtvalidade}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.classeidClasse}" filterBy="#{item.classeidClasse}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_classeidClasse}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.classeidClasse}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.composprodutotipoproduto}" filterBy="#{item.composprodutotipoproduto}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_composprodutotipoproduto}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.composprodutotipoproduto}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.descricao}" filterBy="#{item.descricao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_descricao}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.descricao}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.compatibilidade}" filterBy="#{item.compatibilidade}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_compatibilidade}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.compatibilidade}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.formulaproduto}" filterBy="#{item.formulaproduto}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_formulaproduto}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.formulaproduto}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.formaproduto}" filterBy="#{item.formaproduto}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_formaproduto}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.formaproduto}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.odorproduto}" filterBy="#{item.odorproduto}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_odorproduto}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.odorproduto}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ph}" filterBy="#{item.ph}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_ph}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ph}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.estfisico}" filterBy="#{item.estfisico}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_estfisico}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.estfisico}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.solibilidadeagua}" filterBy="#{item.solibilidadeagua}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_solibilidadeagua}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.solibilidadeagua}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.limiteexplosivo}" filterBy="#{item.limiteexplosivo}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_limiteexplosivo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.limiteexplosivo}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.densidade}" filterBy="#{item.densidade}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_densidade}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.densidade}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.pressavapor}" filterBy="#{item.pressavapor}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_pressavapor}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.pressavapor}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.sinonimos}" filterBy="#{item.sinonimos}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_sinonimos}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.sinonimos}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.tramentodisposicao}" filterBy="#{item.tramentodisposicao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_tramentodisposicao}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.tramentodisposicao}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.regulamentacao}" filterBy="#{item.regulamentacao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_regulamentacao}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.regulamentacao}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.decomposicao}" filterBy="#{item.decomposicao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_decomposicao}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.decomposicao}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.tipodopoduto}" filterBy="#{item.tipodopoduto}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_tipodopoduto}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.tipodopoduto}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idComposi}" filterBy="#{item.idComposi}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_idComposi}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idComposi}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.numOnu}" filterBy="#{item.numOnu}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_numOnu}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.numOnu}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idPtEbulicao}" filterBy="#{item.idPtEbulicao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_idPtEbulicao}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idPtEbulicao}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ptEbuliMin}" filterBy="#{item.ptEbuliMin}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_ptEbuliMin}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ptEbuliMin}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ptEbuliMax}" filterBy="#{item.ptEbuliMax}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_ptEbuliMax}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ptEbuliMax}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idPtFulgor}" filterBy="#{item.idPtFulgor}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_idPtFulgor}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idPtFulgor}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ptFulgMin}" filterBy="#{item.ptFulgMin}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_ptFulgMin}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ptFulgMin}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ptFulgMax}" filterBy="#{item.ptFulgMax}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_ptFulgMax}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ptFulgMax}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idEnderecamento}" filterBy="#{item.idEnderecamento}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_idEnderecamento}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idEnderecamento}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ruaArmazem}" filterBy="#{item.ruaArmazem}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_ruaArmazem}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ruaArmazem}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.lado}" filterBy="#{item.lado}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_lado}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.lado}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.nivel}" filterBy="#{item.nivel}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_nivel}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nivel}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.posicao}" filterBy="#{item.posicao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_posicao}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.posicao}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.qtdProduto}" filterBy="#{item.qtdProduto}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_qtdProduto}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.qtdProduto}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.valorUnitario}" filterBy="#{item.valorUnitario}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_valorUnitario}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.valorUnitario}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.nomefantasia}" filterBy="#{item.nomefantasia}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_nomefantasia}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nomefantasia}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idDetalheNota}" filterBy="#{item.idDetalheNota}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_idDetalheNota}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idDetalheNota}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.numNota}" filterBy="#{item.numNota}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_numNota}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.numNota}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idNumOnu.idNumOnu}" filterBy="#{item.idNumOnu.idNumOnu}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_idNumOnu}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idNumOnu.idNumOnu}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idFornecedor.idFornecedor}" filterBy="#{item.idFornecedor.idFornecedor}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_idFornecedor}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idFornecedor.idFornecedor}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idClasse.descricao}" filterBy="#{item.idClasse.descricao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProdutoTitle_idClasse}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idClasse.descricao}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{produtoController.prepareCreate}" update=":ProdutoCreateForm" oncomplete="ProdutoCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ProdutoViewForm" oncomplete="ProdutoViewDialog.show()" disabled="#{empty produtoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ProdutoEditForm" oncomplete="ProdutoEditDialog.show()" disabled="#{empty produtoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{produtoController.delete}" update=":growl,datalist" disabled="#{empty produtoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

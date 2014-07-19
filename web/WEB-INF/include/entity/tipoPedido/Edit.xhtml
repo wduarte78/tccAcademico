@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoPedidoEditDlg" widgetVar="TipoPedidoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipoPedidoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoPedidoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoPedidoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipoPedidoLabel_idTipoPedido}" for="idTipoPedido" />
+                        <h:outputText id="idTipoPedido" value="#{tipoPedidoController.selected.idTipoPedido}" />
+
+                        <p:outputLabel value="#{myBundle.EditTipoPedidoLabel_tipoPedido}" for="tipoPedido" />
+                        <p:inputText id="tipoPedido" value="#{tipoPedidoController.selected.tipoPedido}" title="#{myBundle.EditTipoPedidoTitle_tipoPedido}" required="true" requiredMessage="#{myBundle.EditTipoPedidoRequiredMessage_tipoPedido}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipoPedidoLabel_especifTipopedido}" for="especifTipopedido" />
+                        <p:inputText id="especifTipopedido" value="#{tipoPedidoController.selected.especifTipopedido}" title="#{myBundle.EditTipoPedidoTitle_especifTipopedido}" required="true" requiredMessage="#{myBundle.EditTipoPedidoRequiredMessage_especifTipopedido}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipoPedidoLabel_usuarioidUsuario}" for="usuarioidUsuario" />
+                        <p:inputText id="usuarioidUsuario" value="#{tipoPedidoController.selected.usuarioidUsuario}" title="#{myBundle.EditTipoPedidoTitle_usuarioidUsuario}" required="true" requiredMessage="#{myBundle.EditTipoPedidoRequiredMessage_usuarioidUsuario}"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipoPedidoLabel_numNota}" for="numNota" />
+                        <p:inputText id="numNota" value="#{tipoPedidoController.selected.numNota}" title="#{myBundle.EditTipoPedidoTitle_numNota}" required="true" requiredMessage="#{myBundle.EditTipoPedidoRequiredMessage_numNota}"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipoPedidoLabel_solicitante}" for="solicitante" />
+                        <p:inputText id="solicitante" value="#{tipoPedidoController.selected.solicitante}" title="#{myBundle.EditTipoPedidoTitle_solicitante}" required="true" requiredMessage="#{myBundle.EditTipoPedidoRequiredMessage_solicitante}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipoPedidoLabel_idDetalheNota}" for="idDetalheNota" />
+                        <p:selectOneMenu id="idDetalheNota" value="#{tipoPedidoController.selected.idDetalheNota}"  converter="detalheNotaConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{detalheNotaController.items}"
+                                           var="idDetalheNotaItem"
+                                           itemValue="#{idDetalheNotaItem}"
+                                           itemLabel="#{idDetalheNotaItem.idDetalheNota.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditTipoPedidoLabel_detalheNotaidDetalheNota}" for="detalheNotaidDetalheNota" />
+                        <p:selectOneMenu id="detalheNotaidDetalheNota" value="#{tipoPedidoController.selected.detalheNotaidDetalheNota}" required="true" requiredMessage="#{myBundle.EditTipoPedidoRequiredMessage_detalheNotaidDetalheNota}" converter="detalheNotaConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{detalheNotaController.items}"
+                                           var="detalheNotaidDetalheNotaItem"
+                                           itemValue="#{detalheNotaidDetalheNotaItem}"
+                                           itemLabel="#{detalheNotaidDetalheNotaItem.idDetalheNota.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoPedidoController.save}" value="#{myBundle.Save}" update="display,:TipoPedidoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,TipoPedidoEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="TipoPedidoEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="LegendaEditDlg" widgetVar="LegendaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditLegendaTitle}" closeOnEscape="true">
+
+            <h:form id="LegendaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{legendaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditLegendaLabel_idLegenda}" for="idLegenda" />
+                        <h:outputText id="idLegenda" value="#{legendaController.selected.idLegenda}" />
+
+                        <p:outputLabel value="#{myBundle.EditLegendaLabel_legDescricao}" for="legDescricao" />
+                        <p:inputText id="legDescricao" value="#{legendaController.selected.legDescricao}" title="#{myBundle.EditLegendaTitle_legDescricao}" required="true" requiredMessage="#{myBundle.EditLegendaRequiredMessage_legDescricao}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.EditLegendaLabel_legenda}" for="legenda" />
+                        <p:inputText id="legenda" value="#{legendaController.selected.legenda}" title="#{myBundle.EditLegendaTitle_legenda}" size="1" maxlength="1"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{legendaController.save}" value="#{myBundle.Save}" update="display,:LegendaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,LegendaEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="LegendaEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

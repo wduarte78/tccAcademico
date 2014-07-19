@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EspcifPedidoListForm">
+
+        <p:panel header="#{myBundle.ListEspcifPedidoTitle}">
+            <p:contextMenu id="EspcifPedidoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('EspcifPedidoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('EspcifPedidoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('EspcifPedidoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('EspcifPedidoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{espcifPedidoController.items}"
+                         var="item"
+                         rowKey="#{item.idEspecPedido}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{espcifPedidoController.selected}">
+
+                <p:ajax event="rowSelect"   update=":EspcifPedidoListForm:createButton :EspcifPedidoListForm:viewButton :EspcifPedidoListForm:editButton :EspcifPedidoListForm:deleteButton :EspcifPedidoListForm:EspcifPedidoDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update=":EspcifPedidoListForm:createButton :EspcifPedidoListForm:viewButton :EspcifPedidoListForm:editButton :EspcifPedidoListForm:deleteButton :EspcifPedidoListForm:EspcifPedidoDataTableContextMenu"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('EspcifPedidoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idEspecPedido}" filterBy="#{item.idEspecPedido}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEspcifPedidoTitle_idEspecPedido}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEspecPedido}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.especPedido}" filterBy="#{item.especPedido}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEspcifPedidoTitle_especPedido}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.especPedido}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{espcifPedidoController.prepareCreate}" update=":EspcifPedidoCreateForm" oncomplete="EspcifPedidoCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":EspcifPedidoViewForm" oncomplete="EspcifPedidoViewDialog.show()" disabled="#{empty espcifPedidoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":EspcifPedidoEditForm" oncomplete="EspcifPedidoEditDialog.show()" disabled="#{empty espcifPedidoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{espcifPedidoController.delete}" update=":growl,datalist" disabled="#{empty espcifPedidoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

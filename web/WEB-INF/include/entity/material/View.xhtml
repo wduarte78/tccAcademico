@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaterialViewDlg" widgetVar="MaterialViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMaterialTitle}" closeOnEscape="true">
+
+            <h:form id="MaterialViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{materialController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMaterialLabel_idMaterial}"/>
+                        <h:outputText value="#{materialController.selected.idMaterial}" title="#{myBundle.ViewMaterialTitle_idMaterial}"/>
+
+                        <h:outputText value="#{myBundle.ViewMaterialLabel_tipoMaterial}"/>
+                        <h:outputText value="#{materialController.selected.tipoMaterial}" title="#{myBundle.ViewMaterialTitle_tipoMaterial}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="MaterialViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

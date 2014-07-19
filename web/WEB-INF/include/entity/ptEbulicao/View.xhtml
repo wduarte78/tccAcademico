@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PtEbulicaoViewDlg" widgetVar="PtEbulicaoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPtEbulicaoTitle}" closeOnEscape="true">
+
+            <h:form id="PtEbulicaoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{ptEbulicaoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewPtEbulicaoLabel_idPtEbulicao}"/>
+                        <h:outputText value="#{ptEbulicaoController.selected.idPtEbulicao}" title="#{myBundle.ViewPtEbulicaoTitle_idPtEbulicao}"/>
+
+                        <h:outputText value="#{myBundle.ViewPtEbulicaoLabel_ptEbuliMin}"/>
+                        <h:outputText value="#{ptEbulicaoController.selected.ptEbuliMin}" title="#{myBundle.ViewPtEbulicaoTitle_ptEbuliMin}"/>
+
+                        <h:outputText value="#{myBundle.ViewPtEbulicaoLabel_ptEbuliMax}"/>
+                        <h:outputText value="#{ptEbulicaoController.selected.ptEbuliMax}" title="#{myBundle.ViewPtEbulicaoTitle_ptEbuliMax}"/>
+
+                        <h:outputText value="#{myBundle.ViewPtEbulicaoLabel_descricao}"/>
+                        <h:outputText value="#{ptEbulicaoController.selected.descricao}" title="#{myBundle.ViewPtEbulicaoTitle_descricao}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PtEbulicaoViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoPedidoViewDlg" widgetVar="TipoPedidoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTipoPedidoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoPedidoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoPedidoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTipoPedidoLabel_idTipoPedido}"/>
+                        <h:outputText value="#{tipoPedidoController.selected.idTipoPedido}" title="#{myBundle.ViewTipoPedidoTitle_idTipoPedido}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoPedidoLabel_tipoPedido}"/>
+                        <h:outputText value="#{tipoPedidoController.selected.tipoPedido}" title="#{myBundle.ViewTipoPedidoTitle_tipoPedido}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoPedidoLabel_especifTipopedido}"/>
+                        <h:outputText value="#{tipoPedidoController.selected.especifTipopedido}" title="#{myBundle.ViewTipoPedidoTitle_especifTipopedido}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoPedidoLabel_usuarioidUsuario}"/>
+                        <h:outputText value="#{tipoPedidoController.selected.usuarioidUsuario}" title="#{myBundle.ViewTipoPedidoTitle_usuarioidUsuario}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoPedidoLabel_numNota}"/>
+                        <h:outputText value="#{tipoPedidoController.selected.numNota}" title="#{myBundle.ViewTipoPedidoTitle_numNota}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoPedidoLabel_solicitante}"/>
+                        <h:outputText value="#{tipoPedidoController.selected.solicitante}" title="#{myBundle.ViewTipoPedidoTitle_solicitante}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoPedidoLabel_idDetalheNota}"/>
+                        <h:outputText value="#{tipoPedidoController.selected.idDetalheNota.idDetalheNota}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoPedidoLabel_detalheNotaidDetalheNota}"/>
+                        <h:outputText value="#{tipoPedidoController.selected.detalheNotaidDetalheNota.idDetalheNota}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="TipoPedidoViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

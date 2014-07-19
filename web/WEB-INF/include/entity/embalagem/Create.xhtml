@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmbalagemCreateDlg" widgetVar="EmbalagemCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateEmbalagemTitle}" closeOnEscape="true">
+
+            <h:form id="EmbalagemCreateForm">
+
+                <h:panelGroup id="display" rendered="#{embalagemController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_capacidade}" for="capacidade" />
+                        <p:inputText id="capacidade" value="#{embalagemController.selected.capacidade}" title="#{myBundle.CreateEmbalagemTitle_capacidade}" required="true" requiredMessage="#{myBundle.CreateEmbalagemRequiredMessage_capacidade}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_especeficacao}" for="especeficacao" />
+                        <p:inputText id="especeficacao" value="#{embalagemController.selected.especeficacao}" title="#{myBundle.CreateEmbalagemTitle_especeficacao}" required="true" requiredMessage="#{myBundle.CreateEmbalagemRequiredMessage_especeficacao}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_condicoes}" for="condicoes" />
+                        <p:inputText id="condicoes" value="#{embalagemController.selected.condicoes}" title="#{myBundle.CreateEmbalagemTitle_condicoes}" required="true" requiredMessage="#{myBundle.CreateEmbalagemRequiredMessage_condicoes}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_dtfabricacao}" for="dtfabricacao" />
+                        <p:calendar id="dtfabricacao" pattern="MM/dd/yyyy" value="#{embalagemController.selected.dtfabricacao}" title="#{myBundle.CreateEmbalagemTitle_dtfabricacao}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_certificado}" for="certificado" />
+                        <p:inputText id="certificado" value="#{embalagemController.selected.certificado}" title="#{myBundle.CreateEmbalagemTitle_certificado}" required="true" requiredMessage="#{myBundle.CreateEmbalagemRequiredMessage_certificado}" size="40" maxlength="40"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_validadecert}" for="validadecert" />
+                        <p:calendar id="validadecert" pattern="MM/dd/yyyy" value="#{embalagemController.selected.validadecert}" title="#{myBundle.CreateEmbalagemTitle_validadecert}" required="true" requiredMessage="#{myBundle.CreateEmbalagemRequiredMessage_validadecert}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_valorunitario}" for="valorunitario" />
+                        <p:inputText id="valorunitario" value="#{embalagemController.selected.valorunitario}" title="#{myBundle.CreateEmbalagemTitle_valorunitario}" required="true" requiredMessage="#{myBundle.CreateEmbalagemRequiredMessage_valorunitario}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_compatibilidade}" for="compatibilidade" />
+                        <p:inputText id="compatibilidade" value="#{embalagemController.selected.compatibilidade}" title="#{myBundle.CreateEmbalagemTitle_compatibilidade}" required="true" requiredMessage="#{myBundle.CreateEmbalagemRequiredMessage_compatibilidade}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_grupo}" for="grupo" />
+                        <p:inputText id="grupo" value="#{embalagemController.selected.grupo}" title="#{myBundle.CreateEmbalagemTitle_grupo}" size="3" maxlength="3"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_tipoMaterial}" for="tipoMaterial" />
+                        <p:inputText id="tipoMaterial" value="#{embalagemController.selected.tipoMaterial}" title="#{myBundle.CreateEmbalagemTitle_tipoMaterial}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_tipoEmbalagemidTipoEmbalagem}" for="tipoEmbalagemidTipoEmbalagem" />
+                        <p:selectOneMenu id="tipoEmbalagemidTipoEmbalagem" value="#{embalagemController.selected.tipoEmbalagemidTipoEmbalagem}" required="true" requiredMessage="#{myBundle.CreateEmbalagemRequiredMessage_tipoEmbalagemidTipoEmbalagem}" converter="tipoEmbalagemConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoEmbalagemController.items}"
+                                           var="tipoEmbalagemidTipoEmbalagemItem"
+                                           itemValue="#{tipoEmbalagemidTipoEmbalagemItem}"
+                                           itemLabel="#{tipoEmbalagemidTipoEmbalagemItem.idTipoEmbalagem.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_materialidMaterial}" for="materialidMaterial" />
+                        <p:selectOneMenu id="materialidMaterial" value="#{embalagemController.selected.materialidMaterial}" required="true" requiredMessage="#{myBundle.CreateEmbalagemRequiredMessage_materialidMaterial}" converter="materialConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{materialController.items}"
+                                           var="materialidMaterialItem"
+                                           itemValue="#{materialidMaterialItem}"
+                                           itemLabel="#{materialidMaterialItem.idMaterial.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_grupoembalagemidGrupoembalagem}" for="grupoembalagemidGrupoembalagem" />
+                        <p:selectOneMenu id="grupoembalagemidGrupoembalagem" value="#{embalagemController.selected.grupoembalagemidGrupoembalagem}" required="true" requiredMessage="#{myBundle.CreateEmbalagemRequiredMessage_grupoembalagemidGrupoembalagem}" converter="grupoembalagemConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{grupoembalagemController.items}"
+                                           var="grupoembalagemidGrupoembalagemItem"
+                                           itemValue="#{grupoembalagemidGrupoembalagemItem}"
+                                           itemLabel="#{grupoembalagemidGrupoembalagemItem.idGrupoembalagem.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateEmbalagemLabel_idClasse}" for="idClasse" />
+                        <p:selectOneMenu id="idClasse" value="#{embalagemController.selected.idClasse}" required="true" requiredMessage="#{myBundle.CreateEmbalagemRequiredMessage_idClasse}" converter="classeConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{classeController.items}"
+                                           var="idClasseItem"
+                                           itemValue="#{idClasseItem}"
+                                           itemLabel="#{idClasseItem.descricao.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{embalagemController.saveNew}" value="#{myBundle.Save}" update="display,:EmbalagemListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,EmbalagemCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="EmbalagemCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

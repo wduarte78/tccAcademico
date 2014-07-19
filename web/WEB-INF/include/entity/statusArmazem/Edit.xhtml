@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="StatusArmazemEditDlg" widgetVar="StatusArmazemEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditStatusArmazemTitle}" closeOnEscape="true">
+
+            <h:form id="StatusArmazemEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{statusArmazemController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditStatusArmazemLabel_idStatusArmazem}" for="idStatusArmazem" />
+                        <h:outputText id="idStatusArmazem" value="#{statusArmazemController.selected.idStatusArmazem}" />
+
+                        <p:outputLabel value="#{myBundle.EditStatusArmazemLabel_statusArmazem}" for="statusArmazem" />
+                        <p:inputText id="statusArmazem" value="#{statusArmazemController.selected.statusArmazem}" title="#{myBundle.EditStatusArmazemTitle_statusArmazem}" required="true" requiredMessage="#{myBundle.EditStatusArmazemRequiredMessage_statusArmazem}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditStatusArmazemLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{statusArmazemController.selected.descricao}" title="#{myBundle.EditStatusArmazemTitle_descricao}" required="true" requiredMessage="#{myBundle.EditStatusArmazemRequiredMessage_descricao}" size="80" maxlength="80"/>
+
+                        <p:outputLabel value="#{myBundle.EditStatusArmazemLabel_tipoCompatibilidadeidTipoCompatibilidade}" for="tipoCompatibilidadeidTipoCompatibilidade" />
+                        <p:inputText id="tipoCompatibilidadeidTipoCompatibilidade" value="#{statusArmazemController.selected.tipoCompatibilidadeidTipoCompatibilidade}" title="#{myBundle.EditStatusArmazemTitle_tipoCompatibilidadeidTipoCompatibilidade}" required="true" requiredMessage="#{myBundle.EditStatusArmazemRequiredMessage_tipoCompatibilidadeidTipoCompatibilidade}"/>
+
+                        <p:outputLabel value="#{myBundle.EditStatusArmazemLabel_movimentacaoidMovimentacao}" for="movimentacaoidMovimentacao" />
+                        <p:selectOneMenu id="movimentacaoidMovimentacao" value="#{statusArmazemController.selected.movimentacaoidMovimentacao}" required="true" requiredMessage="#{myBundle.EditStatusArmazemRequiredMessage_movimentacaoidMovimentacao}" converter="movimentacaoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{movimentacaoController.items}"
+                                           var="movimentacaoidMovimentacaoItem"
+                                           itemValue="#{movimentacaoidMovimentacaoItem}"
+                                           itemLabel="#{movimentacaoidMovimentacaoItem.idMovimentacao.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditStatusArmazemLabel_armazemidArmazem}" for="armazemidArmazem" />
+                        <p:selectOneMenu id="armazemidArmazem" value="#{statusArmazemController.selected.armazemidArmazem}" required="true" requiredMessage="#{myBundle.EditStatusArmazemRequiredMessage_armazemidArmazem}" converter="armazemConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{armazemController.items}"
+                                           var="armazemidArmazemItem"
+                                           itemValue="#{armazemidArmazemItem}"
+                                           itemLabel="#{armazemidArmazemItem.idArmazem.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{statusArmazemController.save}" value="#{myBundle.Save}" update="display,:StatusArmazemListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,StatusArmazemEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="StatusArmazemEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

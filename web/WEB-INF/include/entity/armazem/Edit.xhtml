@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ArmazemEditDlg" widgetVar="ArmazemEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditArmazemTitle}" closeOnEscape="true">
+
+            <h:form id="ArmazemEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{armazemController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditArmazemLabel_idArmazem}" for="idArmazem" />
+                        <h:outputText id="idArmazem" value="#{armazemController.selected.idArmazem}" />
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_tipo}" for="tipo" />
+                        <p:inputText id="tipo" value="#{armazemController.selected.tipo}" title="#{myBundle.EditArmazemTitle_tipo}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_tipo}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_capacidade}" for="capacidade" />
+                        <p:inputText id="capacidade" value="#{armazemController.selected.capacidade}" title="#{myBundle.EditArmazemTitle_capacidade}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_capacidade}"/>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_especificacao}" for="especificacao" />
+                        <p:inputText id="especificacao" value="#{armazemController.selected.especificacao}" title="#{myBundle.EditArmazemTitle_especificacao}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_especificacao}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_certificacao}" for="certificacao" />
+                        <p:inputText id="certificacao" value="#{armazemController.selected.certificacao}" title="#{myBundle.EditArmazemTitle_certificacao}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_certificacao}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_cor}" for="cor" />
+                        <p:inputTextarea rows="4" cols="30" id="cor" value="#{armazemController.selected.cor}" title="#{myBundle.EditArmazemTitle_cor}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_cor}"/>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_rua}" for="rua" />
+                        <p:inputText id="rua" value="#{armazemController.selected.rua}" title="#{myBundle.EditArmazemTitle_rua}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_rua}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_lado}" for="lado" />
+                        <p:inputText id="lado" value="#{armazemController.selected.lado}" title="#{myBundle.EditArmazemTitle_lado}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_lado}" size="35" maxlength="35"/>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_nivel}" for="nivel" />
+                        <p:inputText id="nivel" value="#{armazemController.selected.nivel}" title="#{myBundle.EditArmazemTitle_nivel}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_nivel}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_posicao}" for="posicao" />
+                        <p:inputText id="posicao" value="#{armazemController.selected.posicao}" title="#{myBundle.EditArmazemTitle_posicao}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_posicao}" size="40" maxlength="40"/>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_compatibilidade}" for="compatibilidade" />
+                        <p:inputText id="compatibilidade" value="#{armazemController.selected.compatibilidade}" title="#{myBundle.EditArmazemTitle_compatibilidade}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_compatibilidade}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_estoqMax}" for="estoqMax" />
+                        <p:inputText id="estoqMax" value="#{armazemController.selected.estoqMax}" title="#{myBundle.EditArmazemTitle_estoqMax}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_estoqMax}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_estoqMin}" for="estoqMin" />
+                        <p:inputText id="estoqMin" value="#{armazemController.selected.estoqMin}" title="#{myBundle.EditArmazemTitle_estoqMin}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_estoqMin}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_idEndereco}" for="idEndereco" />
+                        <p:selectOneMenu id="idEndereco" value="#{armazemController.selected.idEndereco}"  converter="endArmazemConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{endArmazemController.items}"
+                                           var="idEnderecoItem"
+                                           itemValue="#{idEnderecoItem}"
+                                           itemLabel="#{idEnderecoItem.idEnderecamento.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditArmazemLabel_idClasse}" for="idClasse" />
+                        <p:selectOneMenu id="idClasse" value="#{armazemController.selected.idClasse}" required="true" requiredMessage="#{myBundle.EditArmazemRequiredMessage_idClasse}" converter="classeConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{classeController.items}"
+                                           var="idClasseItem"
+                                           itemValue="#{idClasseItem}"
+                                           itemLabel="#{idClasseItem.descricao.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{armazemController.save}" value="#{myBundle.Save}" update="display,:ArmazemListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ArmazemEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ArmazemEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

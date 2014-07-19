@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LocalOperacaoCreateDlg" widgetVar="LocalOperacaoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateLocalOperacaoTitle}" closeOnEscape="true">
+
+            <h:form id="LocalOperacaoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{localOperacaoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateLocalOperacaoLabel_local}" for="local" />
+                        <p:inputText id="local" value="#{localOperacaoController.selected.local}" title="#{myBundle.CreateLocalOperacaoTitle_local}" required="true" requiredMessage="#{myBundle.CreateLocalOperacaoRequiredMessage_local}" size="40" maxlength="40"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLocalOperacaoLabel_locDescricao}" for="locDescricao" />
+                        <p:inputText id="locDescricao" value="#{localOperacaoController.selected.locDescricao}" title="#{myBundle.CreateLocalOperacaoTitle_locDescricao}" required="true" requiredMessage="#{myBundle.CreateLocalOperacaoRequiredMessage_locDescricao}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLocalOperacaoLabel_compatibilidade}" for="compatibilidade" />
+                        <p:inputText id="compatibilidade" value="#{localOperacaoController.selected.compatibilidade}" title="#{myBundle.CreateLocalOperacaoTitle_compatibilidade}" required="true" requiredMessage="#{myBundle.CreateLocalOperacaoRequiredMessage_compatibilidade}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLocalOperacaoLabel_idClasse}" for="idClasse" />
+                        <p:selectOneMenu id="idClasse" value="#{localOperacaoController.selected.idClasse}" required="true" requiredMessage="#{myBundle.CreateLocalOperacaoRequiredMessage_idClasse}" converter="classeConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{classeController.items}"
+                                           var="idClasseItem"
+                                           itemValue="#{idClasseItem}"
+                                           itemLabel="#{idClasseItem.descricao.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{localOperacaoController.saveNew}" value="#{myBundle.Save}" update="display,:LocalOperacaoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,LocalOperacaoCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="LocalOperacaoCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

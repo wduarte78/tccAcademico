@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ClasseEditDlg" widgetVar="ClasseEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditClasseTitle}" closeOnEscape="true">
+
+            <h:form id="ClasseEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{classeController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditClasseLabel_idClasse}" for="idClasse" />
+                        <h:outputText id="idClasse" value="#{classeController.selected.idClasse}" />
+
+                        <p:outputLabel value="#{myBundle.EditClasseLabel_classe}" for="classe" />
+                        <p:inputText id="classe" value="#{classeController.selected.classe}" title="#{myBundle.EditClasseTitle_classe}" required="true" requiredMessage="#{myBundle.EditClasseRequiredMessage_classe}" size="35" maxlength="35"/>
+
+                        <p:outputLabel value="#{myBundle.EditClasseLabel_legenda}" for="legenda" />
+                        <p:inputText id="legenda" value="#{classeController.selected.legenda}" title="#{myBundle.EditClasseTitle_legenda}" required="true" requiredMessage="#{myBundle.EditClasseRequiredMessage_legenda}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditClasseLabel_compatibilidade}" for="compatibilidade" />
+                        <p:inputText id="compatibilidade" value="#{classeController.selected.compatibilidade}" title="#{myBundle.EditClasseTitle_compatibilidade}" required="true" requiredMessage="#{myBundle.EditClasseRequiredMessage_compatibilidade}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditClasseLabel_subclasse}" for="subclasse" />
+                        <p:inputText id="subclasse" value="#{classeController.selected.subclasse}" title="#{myBundle.EditClasseTitle_subclasse}" required="true" requiredMessage="#{myBundle.EditClasseRequiredMessage_subclasse}" size="40" maxlength="40"/>
+
+                        <p:outputLabel value="#{myBundle.EditClasseLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{classeController.selected.descricao}" title="#{myBundle.EditClasseTitle_descricao}" required="true" requiredMessage="#{myBundle.EditClasseRequiredMessage_descricao}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.EditClasseLabel_idLegenda}" for="idLegenda" />
+                        <p:selectOneMenu id="idLegenda" value="#{classeController.selected.idLegenda}"  converter="legendaConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{legendaController.items}"
+                                           var="idLegendaItem"
+                                           itemValue="#{idLegendaItem}"
+                                           itemLabel="#{idLegendaItem.legDescricao.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{classeController.save}" value="#{myBundle.Save}" update="display,:ClasseListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ClasseEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ClasseEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

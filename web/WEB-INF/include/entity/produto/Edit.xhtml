@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ProdutoEditDlg" widgetVar="ProdutoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditProdutoTitle}" closeOnEscape="true">
+
+            <h:form id="ProdutoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="ProdutoTabView">
+
+                        <p:tab id="ProdutoTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid  columns="2" columnClasses="column" rendered="#{produtoController.selected != null}">
+
+                                <h:outputLabel value="#{myBundle.EditProdutoLabel_idProduto}" for="idProduto" />
+                                <h:outputText id="idProduto" value="#{produtoController.selected.idProduto}" />
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_nomeProduto}" for="nomeProduto" />
+                                <p:inputText id="nomeProduto" value="#{produtoController.selected.nomeProduto}" title="#{myBundle.EditProdutoTitle_nomeProduto}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_nomeProduto}" size="120" maxlength="120"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_nomegenerico}" for="nomegenerico" />
+                                <p:inputText id="nomegenerico" value="#{produtoController.selected.nomegenerico}" title="#{myBundle.EditProdutoTitle_nomegenerico}" size="120" maxlength="120"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_origem}" for="origem" />
+                                <p:inputText id="origem" value="#{produtoController.selected.origem}" title="#{myBundle.EditProdutoTitle_origem}" size="120" maxlength="120"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_numcas}" for="numcas" />
+                                <p:inputText id="numcas" value="#{produtoController.selected.numcas}" title="#{myBundle.EditProdutoTitle_numcas}" size="10" maxlength="10"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_rotuloproduto}" for="rotuloproduto" />
+                                <p:inputText id="rotuloproduto" value="#{produtoController.selected.rotuloproduto}" title="#{myBundle.EditProdutoTitle_rotuloproduto}" size="30" maxlength="30"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_painelseg}" for="painelseg" />
+                                <p:inputText id="painelseg" value="#{produtoController.selected.painelseg}" title="#{myBundle.EditProdutoTitle_painelseg}" size="30" maxlength="30"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_risco}" for="risco" />
+                                <p:inputText id="risco" value="#{produtoController.selected.risco}" title="#{myBundle.EditProdutoTitle_risco}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_risco}" size="120" maxlength="120"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_acoesemergencia}" for="acoesemergencia" />
+                                <p:inputText id="acoesemergencia" value="#{produtoController.selected.acoesemergencia}" title="#{myBundle.EditProdutoTitle_acoesemergencia}" size="255" maxlength="255"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_numlote}" for="numlote" />
+                                <p:inputText id="numlote" value="#{produtoController.selected.numlote}" title="#{myBundle.EditProdutoTitle_numlote}" size="30" maxlength="30"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_dtfabricacao}" for="dtfabricacao" />
+                                <p:calendar id="dtfabricacao" pattern="MM/dd/yyyy" value="#{produtoController.selected.dtfabricacao}" title="#{myBundle.EditProdutoTitle_dtfabricacao}"  showOn="button"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_dtvalidade}" for="dtvalidade" />
+                                <p:calendar id="dtvalidade" pattern="MM/dd/yyyy" value="#{produtoController.selected.dtvalidade}" title="#{myBundle.EditProdutoTitle_dtvalidade}"  showOn="button"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_classeidClasse}" for="classeidClasse" />
+                                <p:inputText id="classeidClasse" value="#{produtoController.selected.classeidClasse}" title="#{myBundle.EditProdutoTitle_classeidClasse}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_composprodutotipoproduto}" for="composprodutotipoproduto" />
+                                <p:inputText id="composprodutotipoproduto" value="#{produtoController.selected.composprodutotipoproduto}" title="#{myBundle.EditProdutoTitle_composprodutotipoproduto}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_descricao}" for="descricao" />
+                                <p:inputText id="descricao" value="#{produtoController.selected.descricao}" title="#{myBundle.EditProdutoTitle_descricao}" size="255" maxlength="255"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_compatibilidade}" for="compatibilidade" />
+                                <p:inputText id="compatibilidade" value="#{produtoController.selected.compatibilidade}" title="#{myBundle.EditProdutoTitle_compatibilidade}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_compatibilidade}" size="200" maxlength="200"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_formulaproduto}" for="formulaproduto" />
+                                <p:inputText id="formulaproduto" value="#{produtoController.selected.formulaproduto}" title="#{myBundle.EditProdutoTitle_formulaproduto}" size="45" maxlength="45"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_formaproduto}" for="formaproduto" />
+                                <p:inputText id="formaproduto" value="#{produtoController.selected.formaproduto}" title="#{myBundle.EditProdutoTitle_formaproduto}" size="45" maxlength="45"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_odorproduto}" for="odorproduto" />
+                                <p:inputText id="odorproduto" value="#{produtoController.selected.odorproduto}" title="#{myBundle.EditProdutoTitle_odorproduto}" size="45" maxlength="45"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_ph}" for="ph" />
+                                <p:inputText id="ph" value="#{produtoController.selected.ph}" title="#{myBundle.EditProdutoTitle_ph}" size="45" maxlength="45"/>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="ProdutoTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:panelGrid  columns="2" columnClasses="column" rendered="#{produtoController.selected != null}">
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_estfisico}" for="estfisico" />
+                                <p:inputText id="estfisico" value="#{produtoController.selected.estfisico}" title="#{myBundle.EditProdutoTitle_estfisico}" size="35" maxlength="35"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_solibilidadeagua}" for="solibilidadeagua" />
+                                <p:inputText id="solibilidadeagua" value="#{produtoController.selected.solibilidadeagua}" title="#{myBundle.EditProdutoTitle_solibilidadeagua}" size="35" maxlength="35"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_limiteexplosivo}" for="limiteexplosivo" />
+                                <p:inputText id="limiteexplosivo" value="#{produtoController.selected.limiteexplosivo}" title="#{myBundle.EditProdutoTitle_limiteexplosivo}" size="35" maxlength="35"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_densidade}" for="densidade" />
+                                <p:inputText id="densidade" value="#{produtoController.selected.densidade}" title="#{myBundle.EditProdutoTitle_densidade}" size="35" maxlength="35"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_pressavapor}" for="pressavapor" />
+                                <p:inputText id="pressavapor" value="#{produtoController.selected.pressavapor}" title="#{myBundle.EditProdutoTitle_pressavapor}" size="35" maxlength="35"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_sinonimos}" for="sinonimos" />
+                                <p:inputText id="sinonimos" value="#{produtoController.selected.sinonimos}" title="#{myBundle.EditProdutoTitle_sinonimos}" size="30" maxlength="30"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_tramentodisposicao}" for="tramentodisposicao" />
+                                <p:inputText id="tramentodisposicao" value="#{produtoController.selected.tramentodisposicao}" title="#{myBundle.EditProdutoTitle_tramentodisposicao}" size="255" maxlength="255"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_regulamentacao}" for="regulamentacao" />
+                                <p:inputText id="regulamentacao" value="#{produtoController.selected.regulamentacao}" title="#{myBundle.EditProdutoTitle_regulamentacao}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_decomposicao}" for="decomposicao" />
+                                <p:inputText id="decomposicao" value="#{produtoController.selected.decomposicao}" title="#{myBundle.EditProdutoTitle_decomposicao}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_tipodopoduto}" for="tipodopoduto" />
+                                <p:inputText id="tipodopoduto" value="#{produtoController.selected.tipodopoduto}" title="#{myBundle.EditProdutoTitle_tipodopoduto}" size="30" maxlength="30"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_idComposi}" for="idComposi" />
+                                <p:inputText id="idComposi" value="#{produtoController.selected.idComposi}" title="#{myBundle.EditProdutoTitle_idComposi}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_idComposi}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_numOnu}" for="numOnu" />
+                                <p:inputText id="numOnu" value="#{produtoController.selected.numOnu}" title="#{myBundle.EditProdutoTitle_numOnu}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_numOnu}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_idPtEbulicao}" for="idPtEbulicao" />
+                                <p:inputText id="idPtEbulicao" value="#{produtoController.selected.idPtEbulicao}" title="#{myBundle.EditProdutoTitle_idPtEbulicao}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_ptEbuliMin}" for="ptEbuliMin" />
+                                <p:inputText id="ptEbuliMin" value="#{produtoController.selected.ptEbuliMin}" title="#{myBundle.EditProdutoTitle_ptEbuliMin}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_ptEbuliMax}" for="ptEbuliMax" />
+                                <p:inputText id="ptEbuliMax" value="#{produtoController.selected.ptEbuliMax}" title="#{myBundle.EditProdutoTitle_ptEbuliMax}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_idPtFulgor}" for="idPtFulgor" />
+                                <p:inputText id="idPtFulgor" value="#{produtoController.selected.idPtFulgor}" title="#{myBundle.EditProdutoTitle_idPtFulgor}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_ptFulgMin}" for="ptFulgMin" />
+                                <p:inputText id="ptFulgMin" value="#{produtoController.selected.ptFulgMin}" title="#{myBundle.EditProdutoTitle_ptFulgMin}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_ptFulgMax}" for="ptFulgMax" />
+                                <p:inputText id="ptFulgMax" value="#{produtoController.selected.ptFulgMax}" title="#{myBundle.EditProdutoTitle_ptFulgMax}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_idEnderecamento}" for="idEnderecamento" />
+                                <p:inputText id="idEnderecamento" value="#{produtoController.selected.idEnderecamento}" title="#{myBundle.EditProdutoTitle_idEnderecamento}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_idEnderecamento}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_ruaArmazem}" for="ruaArmazem" />
+                                <p:inputText id="ruaArmazem" value="#{produtoController.selected.ruaArmazem}" title="#{myBundle.EditProdutoTitle_ruaArmazem}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_ruaArmazem}" size="35" maxlength="35"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_lado}" for="lado" />
+                                <p:inputText id="lado" value="#{produtoController.selected.lado}" title="#{myBundle.EditProdutoTitle_lado}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_lado}" size="35" maxlength="35"/>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="ProdutoTab3" title="#{myBundle.TabHeaderPrefix} 3">
+                            <p:panelGrid  columns="2" columnClasses="column" rendered="#{produtoController.selected != null}">
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_nivel}" for="nivel" />
+                                <p:inputText id="nivel" value="#{produtoController.selected.nivel}" title="#{myBundle.EditProdutoTitle_nivel}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_nivel}" size="35" maxlength="35"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_posicao}" for="posicao" />
+                                <p:inputText id="posicao" value="#{produtoController.selected.posicao}" title="#{myBundle.EditProdutoTitle_posicao}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_posicao}" size="35" maxlength="35"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_qtdProduto}" for="qtdProduto" />
+                                <p:inputText id="qtdProduto" value="#{produtoController.selected.qtdProduto}" title="#{myBundle.EditProdutoTitle_qtdProduto}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_qtdProduto}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_valorUnitario}" for="valorUnitario" />
+                                <p:inputText id="valorUnitario" value="#{produtoController.selected.valorUnitario}" title="#{myBundle.EditProdutoTitle_valorUnitario}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_valorUnitario}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_nomefantasia}" for="nomefantasia" />
+                                <p:inputText id="nomefantasia" value="#{produtoController.selected.nomefantasia}" title="#{myBundle.EditProdutoTitle_nomefantasia}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_nomefantasia}" size="255" maxlength="255"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_idDetalheNota}" for="idDetalheNota" />
+                                <p:inputText id="idDetalheNota" value="#{produtoController.selected.idDetalheNota}" title="#{myBundle.EditProdutoTitle_idDetalheNota}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_numNota}" for="numNota" />
+                                <p:inputText id="numNota" value="#{produtoController.selected.numNota}" title="#{myBundle.EditProdutoTitle_numNota}"/>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_idNumOnu}" for="idNumOnu" />
+                                <p:selectOneMenu id="idNumOnu" value="#{produtoController.selected.idNumOnu}" required="true" requiredMessage="#{myBundle.EditProdutoRequiredMessage_idNumOnu}" converter="numOnuConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{numOnuController.items}"
+                                                   var="idNumOnuItem"
+                                                   itemValue="#{idNumOnuItem}"
+                                                   itemLabel="#{idNumOnuItem.idNumOnu.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_idFornecedor}" for="idFornecedor" />
+                                <p:selectOneMenu id="idFornecedor" value="#{produtoController.selected.idFornecedor}"  converter="fornecedorConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{fornecedorController.items}"
+                                                   var="idFornecedorItem"
+                                                   itemValue="#{idFornecedorItem}"
+                                                   itemLabel="#{idFornecedorItem.idFornecedor.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditProdutoLabel_idClasse}" for="idClasse" />
+                                <p:selectOneMenu id="idClasse" value="#{produtoController.selected.idClasse}"  converter="classeConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{classeController.items}"
+                                                   var="idClasseItem"
+                                                   itemValue="#{idClasseItem}"
+                                                   itemLabel="#{idClasseItem.descricao.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{produtoController.save}" value="#{myBundle.Save}" update="display,:ProdutoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ProdutoEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ProdutoEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

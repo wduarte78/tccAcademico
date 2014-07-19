@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstadoCreateDlg" widgetVar="EstadoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateEstadoTitle}" closeOnEscape="true">
+
+            <h:form id="EstadoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{estadoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateEstadoLabel_sglEstado}" for="sglEstado" />
+                        <p:inputText id="sglEstado" value="#{estadoController.selected.sglEstado}" title="#{myBundle.CreateEstadoTitle_sglEstado}" required="true" requiredMessage="#{myBundle.CreateEstadoRequiredMessage_sglEstado}" size="2" maxlength="2"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEstadoLabel_nomEstado}" for="nomEstado" />
+                        <p:inputText id="nomEstado" value="#{estadoController.selected.nomEstado}" title="#{myBundle.CreateEstadoTitle_nomEstado}" required="true" requiredMessage="#{myBundle.CreateEstadoRequiredMessage_nomEstado}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEstadoLabel_codPais}" for="codPais" />
+                        <p:selectOneMenu id="codPais" value="#{estadoController.selected.codPais}" required="true" requiredMessage="#{myBundle.CreateEstadoRequiredMessage_codPais}" converter="paisConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{paisController.items}"
+                                           var="codPaisItem"
+                                           itemValue="#{codPaisItem}"
+                                           itemLabel="#{codPaisItem.codPais.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{estadoController.saveNew}" value="#{myBundle.Save}" update="display,:EstadoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,EstadoCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="EstadoCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

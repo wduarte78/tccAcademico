@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FornecedorCreateDlg" widgetVar="FornecedorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateFornecedorTitle}" closeOnEscape="true">
+
+            <h:form id="FornecedorCreateForm">
+
+                <h:panelGroup id="display" rendered="#{fornecedorController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateFornecedorLabel_razaosocial}" for="razaosocial" />
+                        <p:inputText id="razaosocial" value="#{fornecedorController.selected.razaosocial}" title="#{myBundle.CreateFornecedorTitle_razaosocial}" required="true" requiredMessage="#{myBundle.CreateFornecedorRequiredMessage_razaosocial}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFornecedorLabel_nomefantasia}" for="nomefantasia" />
+                        <p:inputText id="nomefantasia" value="#{fornecedorController.selected.nomefantasia}" title="#{myBundle.CreateFornecedorTitle_nomefantasia}" required="true" requiredMessage="#{myBundle.CreateFornecedorRequiredMessage_nomefantasia}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFornecedorLabel_cnpj}" for="cnpj" />
+                        <p:inputText id="cnpj" value="#{fornecedorController.selected.cnpj}" title="#{myBundle.CreateFornecedorTitle_cnpj}" required="true" requiredMessage="#{myBundle.CreateFornecedorRequiredMessage_cnpj}" size="35" maxlength="35"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFornecedorLabel_logradouro}" for="logradouro" />
+                        <p:inputText id="logradouro" value="#{fornecedorController.selected.logradouro}" title="#{myBundle.CreateFornecedorTitle_logradouro}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFornecedorLabel_bairro}" for="bairro" />
+                        <p:inputText id="bairro" value="#{fornecedorController.selected.bairro}" title="#{myBundle.CreateFornecedorTitle_bairro}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFornecedorLabel_cidade}" for="cidade" />
+                        <p:inputText id="cidade" value="#{fornecedorController.selected.cidade}" title="#{myBundle.CreateFornecedorTitle_cidade}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFornecedorLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{fornecedorController.selected.estado}" title="#{myBundle.CreateFornecedorTitle_estado}" size="2" maxlength="2"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFornecedorLabel_num}" for="num" />
+                        <p:inputText id="num" value="#{fornecedorController.selected.num}" title="#{myBundle.CreateFornecedorTitle_num}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFornecedorLabel_pais}" for="pais" />
+                        <p:inputText id="pais" value="#{fornecedorController.selected.pais}" title="#{myBundle.CreateFornecedorTitle_pais}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFornecedorLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{fornecedorController.selected.email}" title="#{myBundle.CreateFornecedorTitle_email}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFornecedorLabel_cep}" for="cep" />
+                        <p:inputText id="cep" value="#{fornecedorController.selected.cep}" title="#{myBundle.CreateFornecedorTitle_cep}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFornecedorLabel_enderecoidEndereco}" for="enderecoidEndereco" />
+                        <p:selectOneMenu id="enderecoidEndereco" value="#{fornecedorController.selected.enderecoidEndereco}" required="true" requiredMessage="#{myBundle.CreateFornecedorRequiredMessage_enderecoidEndereco}" converter="enderecoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{enderecoController.items}"
+                                           var="enderecoidEnderecoItem"
+                                           itemValue="#{enderecoidEnderecoItem}"
+                                           itemLabel="#{enderecoidEnderecoItem.idEndereco.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{fornecedorController.saveNew}" value="#{myBundle.Save}" update="display,:FornecedorListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,FornecedorCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="FornecedorCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

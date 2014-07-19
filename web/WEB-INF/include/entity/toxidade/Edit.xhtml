@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ToxidadeEditDlg" widgetVar="ToxidadeEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditToxidadeTitle}" closeOnEscape="true">
+
+            <h:form id="ToxidadeEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{toxidadeController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditToxidadeLabel_idToxidade}" for="idToxidade" />
+                        <h:outputText id="idToxidade" value="#{toxidadeController.selected.idToxidade}" />
+
+                        <p:outputLabel value="#{myBundle.EditToxidadeLabel_toxMin}" for="toxMin" />
+                        <p:inputText id="toxMin" value="#{toxidadeController.selected.toxMin}" title="#{myBundle.EditToxidadeTitle_toxMin}" required="true" requiredMessage="#{myBundle.EditToxidadeRequiredMessage_toxMin}"/>
+
+                        <p:outputLabel value="#{myBundle.EditToxidadeLabel_toxMax}" for="toxMax" />
+                        <p:inputText id="toxMax" value="#{toxidadeController.selected.toxMax}" title="#{myBundle.EditToxidadeTitle_toxMax}" required="true" requiredMessage="#{myBundle.EditToxidadeRequiredMessage_toxMax}"/>
+
+                        <p:outputLabel value="#{myBundle.EditToxidadeLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{toxidadeController.selected.descricao}" title="#{myBundle.EditToxidadeTitle_descricao}" required="true" requiredMessage="#{myBundle.EditToxidadeRequiredMessage_descricao}" size="40" maxlength="40"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{toxidadeController.save}" value="#{myBundle.Save}" update="display,:ToxidadeListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ToxidadeEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ToxidadeEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

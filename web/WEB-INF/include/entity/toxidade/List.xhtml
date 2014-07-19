@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ToxidadeListForm">
+
+        <p:panel header="#{myBundle.ListToxidadeTitle}">
+            <p:contextMenu id="ToxidadeDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ToxidadeListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ToxidadeListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ToxidadeListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ToxidadeListForm:deleteButton').click();" icon="ui-icon-trash"/>
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{toxidadeController.items}"
+                         var="item"
+                         rowKey="#{item.idToxidade}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{toxidadeController.selected}">
+
+                <p:ajax event="rowSelect"   update=":ToxidadeListForm:createButton :ToxidadeListForm:viewButton :ToxidadeListForm:editButton :ToxidadeListForm:deleteButton :ToxidadeListForm:ToxidadeDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update=":ToxidadeListForm:createButton :ToxidadeListForm:viewButton :ToxidadeListForm:editButton :ToxidadeListForm:deleteButton :ToxidadeListForm:ToxidadeDataTableContextMenu"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ToxidadeListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idToxidade}" filterBy="#{item.idToxidade}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListToxidadeTitle_idToxidade}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idToxidade}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.toxMin}" filterBy="#{item.toxMin}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListToxidadeTitle_toxMin}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.toxMin}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.toxMax}" filterBy="#{item.toxMax}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListToxidadeTitle_toxMax}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.toxMax}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descricao}" filterBy="#{item.descricao}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListToxidadeTitle_descricao}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descricao}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{toxidadeController.prepareCreate}" update=":ToxidadeCreateForm" oncomplete="ToxidadeCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ToxidadeViewForm" oncomplete="ToxidadeViewDialog.show()" disabled="#{empty toxidadeController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ToxidadeEditForm" oncomplete="ToxidadeEditDialog.show()" disabled="#{empty toxidadeController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{toxidadeController.delete}" update=":growl,datalist" disabled="#{empty toxidadeController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

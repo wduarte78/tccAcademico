@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RolerEditDlg" widgetVar="RolerEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditRolerTitle}" closeOnEscape="true">
+
+            <h:form id="RolerEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{rolerController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditRolerLabel_idRole}" for="idRole" />
+                        <h:outputText id="idRole" value="#{rolerController.selected.idRole}" />
+
+                        <p:outputLabel value="#{myBundle.EditRolerLabel_nomerole}" for="nomerole" />
+                        <p:inputText id="nomerole" value="#{rolerController.selected.nomerole}" title="#{myBundle.EditRolerTitle_nomerole}" required="true" requiredMessage="#{myBundle.EditRolerRequiredMessage_nomerole}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.EditRolerLabel_usersCollection}" for="usersCollection" />
+                        <p:selectManyMenu id="usersCollection" value="#{rolerController.selected.usersCollection}"  converter="usersConverter">
+                            <f:selectItems value="#{usersController.items}"
+                                           var="usersCollectionItem"
+                                           itemValue="#{usersCollectionItem}"
+                                           itemLabel="#{usersCollectionItem.username.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rolerController.save}" value="#{myBundle.Save}" update="display,:RolerListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,RolerEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="RolerEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

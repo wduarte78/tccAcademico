@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MaterialEditDlg" widgetVar="MaterialEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditMaterialTitle}" closeOnEscape="true">
+
+            <h:form id="MaterialEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{materialController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditMaterialLabel_idMaterial}" for="idMaterial" />
+                        <h:outputText id="idMaterial" value="#{materialController.selected.idMaterial}" />
+
+                        <p:outputLabel value="#{myBundle.EditMaterialLabel_tipoMaterial}" for="tipoMaterial" />
+                        <p:inputText id="tipoMaterial" value="#{materialController.selected.tipoMaterial}" title="#{myBundle.EditMaterialTitle_tipoMaterial}" required="true" requiredMessage="#{myBundle.EditMaterialRequiredMessage_tipoMaterial}" size="30" maxlength="30"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{materialController.save}" value="#{myBundle.Save}" update="display,:MaterialListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,MaterialEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="MaterialEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

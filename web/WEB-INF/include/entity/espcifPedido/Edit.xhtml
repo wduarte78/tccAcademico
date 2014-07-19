@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="EspcifPedidoEditDlg" widgetVar="EspcifPedidoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditEspcifPedidoTitle}" closeOnEscape="true">
+
+            <h:form id="EspcifPedidoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{espcifPedidoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditEspcifPedidoLabel_idEspecPedido}" for="idEspecPedido" />
+                        <h:outputText id="idEspecPedido" value="#{espcifPedidoController.selected.idEspecPedido}" />
+
+                        <p:outputLabel value="#{myBundle.EditEspcifPedidoLabel_especPedido}" for="especPedido" />
+                        <p:inputText id="especPedido" value="#{espcifPedidoController.selected.especPedido}" title="#{myBundle.EditEspcifPedidoTitle_especPedido}" required="true" requiredMessage="#{myBundle.EditEspcifPedidoRequiredMessage_especPedido}" size="40" maxlength="40"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{espcifPedidoController.save}" value="#{myBundle.Save}" update="display,:EspcifPedidoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,EspcifPedidoEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="EspcifPedidoEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

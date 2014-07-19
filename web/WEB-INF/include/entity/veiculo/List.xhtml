@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="VeiculoListForm">
+
+        <p:panel header="#{myBundle.ListVeiculoTitle}">
+            <p:contextMenu id="VeiculoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('VeiculoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('VeiculoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('VeiculoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('VeiculoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.VeiculoMenuItem_tipoEquipamentoCollection}" icon="ui-icon-search"  action="#{veiculoController.navigateTipoEquipamentoCollection}" disabled="#{empty veiculoController.selected.tipoEquipamentoCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.VeiculoMenuItem_combustivelidCombustivel}" icon="ui-icon-search"  actionListener="#{veiculoController.prepareCombustivelidCombustivel}" update=":CombustivelViewForm" oncomplete="CombustivelViewDialog.show()" disabled="#{empty veiculoController.selected.combustivelidCombustivel}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{veiculoController.items}"
+                         var="item"
+                         rowKey="#{item.idVeiculo}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{veiculoController.selected}">
+
+                <p:ajax event="rowSelect"   update=":VeiculoListForm:createButton :VeiculoListForm:viewButton :VeiculoListForm:editButton :VeiculoListForm:deleteButton :VeiculoListForm:VeiculoDataTableContextMenu" listener="#{veiculoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":VeiculoListForm:createButton :VeiculoListForm:viewButton :VeiculoListForm:editButton :VeiculoListForm:deleteButton :VeiculoListForm:VeiculoDataTableContextMenu" listener="#{veiculoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('VeiculoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idVeiculo}" filterBy="#{item.idVeiculo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListVeiculoTitle_idVeiculo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idVeiculo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nome}" filterBy="#{item.nome}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListVeiculoTitle_nome}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nome}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.modelo}" filterBy="#{item.modelo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListVeiculoTitle_modelo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.modelo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fabricante}" filterBy="#{item.fabricante}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListVeiculoTitle_fabricante}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fabricante}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.chassi}" filterBy="#{item.chassi}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListVeiculoTitle_chassi}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.chassi}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.placa}" filterBy="#{item.placa}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListVeiculoTitle_placa}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.placa}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.cor}" filterBy="#{item.cor}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListVeiculoTitle_cor}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cor}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ano}" filterBy="#{item.ano}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListVeiculoTitle_ano}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ano}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.nomeCombustivel}" filterBy="#{item.nomeCombustivel}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListVeiculoTitle_nomeCombustivel}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nomeCombustivel}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.combustivelidCombustivel.idCombustivel}" filterBy="#{item.combustivelidCombustivel.idCombustivel}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListVeiculoTitle_combustivelidCombustivel}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.combustivelidCombustivel.idCombustivel}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{veiculoController.prepareCreate}" update=":VeiculoCreateForm" oncomplete="VeiculoCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":VeiculoViewForm" oncomplete="VeiculoViewDialog.show()" disabled="#{empty veiculoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":VeiculoEditForm" oncomplete="VeiculoEditDialog.show()" disabled="#{empty veiculoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{veiculoController.delete}" update=":growl,datalist" disabled="#{empty veiculoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

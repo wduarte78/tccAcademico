@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoMovimentacaoViewDlg" widgetVar="TipoMovimentacaoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTipoMovimentacaoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoMovimentacaoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoMovimentacaoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTipoMovimentacaoLabel_idTipoMovimentacao}"/>
+                        <h:outputText value="#{tipoMovimentacaoController.selected.idTipoMovimentacao}" title="#{myBundle.ViewTipoMovimentacaoTitle_idTipoMovimentacao}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoMovimentacaoLabel_tipoMovimentacao}"/>
+                        <h:outputText value="#{tipoMovimentacaoController.selected.tipoMovimentacao}" title="#{myBundle.ViewTipoMovimentacaoTitle_tipoMovimentacao}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoMovimentacaoLabel_matricula}"/>
+                        <h:outputText value="#{tipoMovimentacaoController.selected.matricula}" title="#{myBundle.ViewTipoMovimentacaoTitle_matricula}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoMovimentacaoLabel_tipoPedido}"/>
+                        <h:outputText value="#{tipoMovimentacaoController.selected.tipoPedido}" title="#{myBundle.ViewTipoMovimentacaoTitle_tipoPedido}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoMovimentacaoLabel_idEspecPedido}"/>
+                        <h:outputText value="#{tipoMovimentacaoController.selected.idEspecPedido}" title="#{myBundle.ViewTipoMovimentacaoTitle_idEspecPedido}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoMovimentacaoLabel_especPedido}"/>
+                        <h:outputText value="#{tipoMovimentacaoController.selected.especPedido}" title="#{myBundle.ViewTipoMovimentacaoTitle_especPedido}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoMovimentacaoLabel_nomeFuncionario}"/>
+                        <h:outputText value="#{tipoMovimentacaoController.selected.nomeFuncionario}" title="#{myBundle.ViewTipoMovimentacaoTitle_nomeFuncionario}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoMovimentacaoLabel_observacoes}"/>
+                        <h:outputText value="#{tipoMovimentacaoController.selected.observacoes}" title="#{myBundle.ViewTipoMovimentacaoTitle_observacoes}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoMovimentacaoLabel_idTipoPedido}"/>
+                        <h:outputText value="#{tipoMovimentacaoController.selected.idTipoPedido.idTipoPedido}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoMovimentacaoLabel_idFuncionario}"/>
+                        <h:outputText value="#{tipoMovimentacaoController.selected.idFuncionario.username}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="TipoMovimentacaoViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

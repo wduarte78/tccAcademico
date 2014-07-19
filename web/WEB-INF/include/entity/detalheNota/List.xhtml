@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DetalheNotaListForm">
+
+        <p:panel header="#{myBundle.ListDetalheNotaTitle}">
+            <p:contextMenu id="DetalheNotaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('DetalheNotaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('DetalheNotaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('DetalheNotaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('DetalheNotaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.DetalheNotaMenuItem_tipoEquipamentoidTipoEquipamento}" icon="ui-icon-search"  actionListener="#{detalheNotaController.prepareTipoEquipamentoidTipoEquipamento}" update=":TipoEquipamentoViewForm" oncomplete="TipoEquipamentoViewDialog.show()" disabled="#{empty detalheNotaController.selected.tipoEquipamentoidTipoEquipamento}"/>  
+                <p:menuitem value="#{myBundle.DetalheNotaMenuItem_fornecedoridFornecedor}" icon="ui-icon-search"  actionListener="#{detalheNotaController.prepareFornecedoridFornecedor}" update=":FornecedorViewForm" oncomplete="FornecedorViewDialog.show()" disabled="#{empty detalheNotaController.selected.fornecedoridFornecedor}"/>  
+                <p:menuitem value="#{myBundle.DetalheNotaMenuItem_embalagemidEmbalgem}" icon="ui-icon-search"  actionListener="#{detalheNotaController.prepareEmbalagemidEmbalgem}" update=":EmbalagemViewForm" oncomplete="EmbalagemViewDialog.show()" disabled="#{empty detalheNotaController.selected.embalagemidEmbalgem}"/>  
+                <p:menuitem value="#{myBundle.DetalheNotaMenuItem_idClasse}" icon="ui-icon-search"  actionListener="#{detalheNotaController.prepareIdClasse}" update=":ClasseViewForm" oncomplete="ClasseViewDialog.show()" disabled="#{empty detalheNotaController.selected.idClasse}"/>  
+                <p:menuitem value="#{myBundle.DetalheNotaMenuItem_tipoPedidoCollection}" icon="ui-icon-search"  action="#{detalheNotaController.navigateTipoPedidoCollection}" disabled="#{empty detalheNotaController.selected.tipoPedidoCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.DetalheNotaMenuItem_tipoPedidoCollection1}" icon="ui-icon-search"  action="#{detalheNotaController.navigateTipoPedidoCollection1}" disabled="#{empty detalheNotaController.selected.tipoPedidoCollection1}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{detalheNotaController.items}"
+                         var="item"
+                         rowKey="#{item.idDetalheNota}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{detalheNotaController.selected}">
+
+                <p:ajax event="rowSelect"   update=":DetalheNotaListForm:createButton :DetalheNotaListForm:viewButton :DetalheNotaListForm:editButton :DetalheNotaListForm:deleteButton :DetalheNotaListForm:DetalheNotaDataTableContextMenu" listener="#{detalheNotaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":DetalheNotaListForm:createButton :DetalheNotaListForm:viewButton :DetalheNotaListForm:editButton :DetalheNotaListForm:deleteButton :DetalheNotaListForm:DetalheNotaDataTableContextMenu" listener="#{detalheNotaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DetalheNotaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idDetalheNota}" filterBy="#{item.idDetalheNota}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalheNotaTitle_idDetalheNota}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idDetalheNota}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.numNota}" filterBy="#{item.numNota}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalheNotaTitle_numNota}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.numNota}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dtPedido}" filterBy="#{item.dtPedido}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalheNotaTitle_dtPedido}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dtPedido}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.valorTotal}" filterBy="#{item.valorTotal}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalheNotaTitle_valorTotal}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.valorTotal}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.valorUnitario}" filterBy="#{item.valorUnitario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalheNotaTitle_valorUnitario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.valorUnitario}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.qtdProduto}" filterBy="#{item.qtdProduto}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalheNotaTitle_qtdProduto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.qtdProduto}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.idProduto}" filterBy="#{item.idProduto}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetalheNotaTitle_idProduto}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idProduto}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.nomeProduto}" filterBy="#{item.nomeProduto}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetalheNotaTitle_nomeProduto}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nomeProduto}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.compatibilidade}" filterBy="#{item.compatibilidade}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetalheNotaTitle_compatibilidade}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.compatibilidade}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.tipoEquipamentoidTipoEquipamento.idTipoEquipamento}" filterBy="#{item.tipoEquipamentoidTipoEquipamento.idTipoEquipamento}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetalheNotaTitle_tipoEquipamentoidTipoEquipamento}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.tipoEquipamentoidTipoEquipamento.idTipoEquipamento}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fornecedoridFornecedor.idFornecedor}" filterBy="#{item.fornecedoridFornecedor.idFornecedor}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetalheNotaTitle_fornecedoridFornecedor}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fornecedoridFornecedor.idFornecedor}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.embalagemidEmbalgem.idEmbalgem}" filterBy="#{item.embalagemidEmbalgem.idEmbalgem}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetalheNotaTitle_embalagemidEmbalgem}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.embalagemidEmbalgem.idEmbalgem}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idClasse.descricao}" filterBy="#{item.idClasse.descricao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetalheNotaTitle_idClasse}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idClasse.descricao}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{detalheNotaController.prepareCreate}" update=":DetalheNotaCreateForm" oncomplete="DetalheNotaCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":DetalheNotaViewForm" oncomplete="DetalheNotaViewDialog.show()" disabled="#{empty detalheNotaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":DetalheNotaEditForm" oncomplete="DetalheNotaEditDialog.show()" disabled="#{empty detalheNotaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{detalheNotaController.delete}" update=":growl,datalist" disabled="#{empty detalheNotaController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

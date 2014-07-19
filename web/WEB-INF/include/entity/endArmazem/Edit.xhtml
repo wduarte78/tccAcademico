@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="EndArmazemEditDlg" widgetVar="EndArmazemEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditEndArmazemTitle}" closeOnEscape="true">
+
+            <h:form id="EndArmazemEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{endArmazemController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditEndArmazemLabel_idEnderecamento}" for="idEnderecamento" />
+                        <h:outputText id="idEnderecamento" value="#{endArmazemController.selected.idEnderecamento}" />
+
+                        <p:outputLabel value="#{myBundle.EditEndArmazemLabel_identificacao}" for="identificacao" />
+                        <p:inputText id="identificacao" value="#{endArmazemController.selected.identificacao}" title="#{myBundle.EditEndArmazemTitle_identificacao}" required="true" requiredMessage="#{myBundle.EditEndArmazemRequiredMessage_identificacao}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{myBundle.EditEndArmazemLabel_cor}" for="cor" />
+                        <p:inputText id="cor" value="#{endArmazemController.selected.cor}" title="#{myBundle.EditEndArmazemTitle_cor}" required="true" requiredMessage="#{myBundle.EditEndArmazemRequiredMessage_cor}" size="25" maxlength="25"/>
+
+                        <p:outputLabel value="#{myBundle.EditEndArmazemLabel_ruaArmazem}" for="ruaArmazem" />
+                        <p:inputText id="ruaArmazem" value="#{endArmazemController.selected.ruaArmazem}" title="#{myBundle.EditEndArmazemTitle_ruaArmazem}" required="true" requiredMessage="#{myBundle.EditEndArmazemRequiredMessage_ruaArmazem}" size="35" maxlength="35"/>
+
+                        <p:outputLabel value="#{myBundle.EditEndArmazemLabel_lado}" for="lado" />
+                        <p:inputText id="lado" value="#{endArmazemController.selected.lado}" title="#{myBundle.EditEndArmazemTitle_lado}" required="true" requiredMessage="#{myBundle.EditEndArmazemRequiredMessage_lado}" size="35" maxlength="35"/>
+
+                        <p:outputLabel value="#{myBundle.EditEndArmazemLabel_nivel}" for="nivel" />
+                        <p:inputText id="nivel" value="#{endArmazemController.selected.nivel}" title="#{myBundle.EditEndArmazemTitle_nivel}" required="true" requiredMessage="#{myBundle.EditEndArmazemRequiredMessage_nivel}" size="35" maxlength="35"/>
+
+                        <p:outputLabel value="#{myBundle.EditEndArmazemLabel_posicao}" for="posicao" />
+                        <p:inputText id="posicao" value="#{endArmazemController.selected.posicao}" title="#{myBundle.EditEndArmazemTitle_posicao}" required="true" requiredMessage="#{myBundle.EditEndArmazemRequiredMessage_posicao}" size="35" maxlength="35"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{endArmazemController.save}" value="#{myBundle.Save}" update="display,:EndArmazemListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,EndArmazemEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="EndArmazemEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CidadeCreateDlg" widgetVar="CidadeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateCidadeTitle}" closeOnEscape="true">
+
+            <h:form id="CidadeCreateForm">
+
+                <h:panelGroup id="display" rendered="#{cidadeController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateCidadeLabel_nomCidade}" for="nomCidade" />
+                        <p:inputText id="nomCidade" value="#{cidadeController.selected.nomCidade}" title="#{myBundle.CreateCidadeTitle_nomCidade}" required="true" requiredMessage="#{myBundle.CreateCidadeRequiredMessage_nomCidade}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCidadeLabel_codEstado}" for="codEstado" />
+                        <p:selectOneMenu id="codEstado" value="#{cidadeController.selected.codEstado}" required="true" requiredMessage="#{myBundle.CreateCidadeRequiredMessage_codEstado}" converter="estadoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{estadoController.items}"
+                                           var="codEstadoItem"
+                                           itemValue="#{codEstadoItem}"
+                                           itemLabel="#{codEstadoItem.codEstado.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cidadeController.saveNew}" value="#{myBundle.Save}" update="display,:CidadeListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,CidadeCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="CidadeCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

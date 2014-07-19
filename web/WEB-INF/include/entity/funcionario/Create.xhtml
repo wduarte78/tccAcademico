@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FuncionarioCreateDlg" widgetVar="FuncionarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateFuncionarioTitle}" closeOnEscape="true">
+
+            <h:form id="FuncionarioCreateForm">
+
+                <h:panelGroup id="display" rendered="#{funcionarioController.selected != null}">
+                    <p:tabView id="FuncionarioTabView" effect="slide">
+
+                        <p:tab id="FuncionarioTab1" title="Dados Funcionais">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:fieldset legend="Profissional">
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_sobrenome}" for="sobrenome" />
+                                <p:inputText id="sobrenome" value="#{funcionarioController.selected.sobrenome}" title="#{myBundle.CreateFuncionarioTitle_sobrenome}" required="true" requiredMessage="#{myBundle.CreateFuncionarioRequiredMessage_sobrenome}" size="70" maxlength="70"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_matricula}" for="matricula" />
+                                <p:inputText id="matricula" value="#{funcionarioController.selected.matricula}" title="#{myBundle.CreateFuncionarioTitle_matricula}" required="true" requiredMessage="#{myBundle.CreateFuncionarioRequiredMessage_matricula}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_funcao}" for="funcao" />
+                                <p:inputText id="funcao" value="#{funcionarioController.selected.funcao}" title="#{myBundle.CreateFuncionarioTitle_funcao}" required="true" requiredMessage="#{myBundle.CreateFuncionarioRequiredMessage_funcao}" size="40" maxlength="40"/>
+                                
+                                <br />
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_especializacao}" for="especializacao" />
+                                <p:inputText id="especializacao" value="#{funcionarioController.selected.especializacao}" title="#{myBundle.CreateFuncionarioTitle_especializacao}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_dtadmissao}" for="dtadmissao" />
+                                <p:calendar id="dtadmissao" pattern="MM/dd/yyyy" value="#{funcionarioController.selected.dtadmissao}" title="#{myBundle.CreateFuncionarioTitle_dtadmissao}" required="true" requiredMessage="#{myBundle.CreateFuncionarioRequiredMessage_dtadmissao}" showOn="button"/>
+                                <br />
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_cpf}" for="cpf" />
+                                <p:inputText id="cpf" value="#{funcionarioController.selected.cpf}" title="#{myBundle.CreateFuncionarioTitle_cpf}" required="true" requiredMessage="#{myBundle.CreateFuncionarioRequiredMessage_cpf}" size="17" maxlength="17"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_rg}" for="rg" />
+                                <p:inputText id="rg" value="#{funcionarioController.selected.rg}" title="#{myBundle.CreateFuncionarioTitle_rg}" required="true" requiredMessage="#{myBundle.CreateFuncionarioRequiredMessage_rg}" size="12" maxlength="12"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_dtnasc}" for="dtnasc" />
+                                <p:calendar id="dtnasc" pattern="MM/dd/yyyy" value="#{funcionarioController.selected.dtnasc}" title="#{myBundle.CreateFuncionarioTitle_dtnasc}" required="true" requiredMessage="#{myBundle.CreateFuncionarioRequiredMessage_dtnasc}" showOn="button"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_cargo}" for="cargo" />
+                                <p:inputText id="cargo" value="#{funcionarioController.selected.cargo}" title="#{myBundle.CreateFuncionarioTitle_cargo}" required="true" requiredMessage="#{myBundle.CreateFuncionarioRequiredMessage_cargo}" size="50" maxlength="50"/>
+                                <br />
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_nivel}" for="nivel" />
+                                <p:inputText id="nivel" value="#{funcionarioController.selected.nivel}" title="#{myBundle.CreateFuncionarioTitle_nivel}" required="true" requiredMessage="#{myBundle.CreateFuncionarioRequiredMessage_nivel}" size="30" maxlength="30"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_lotacao}" for="lotacao" />
+                                <p:inputText id="lotacao" value="#{funcionarioController.selected.lotacao}" title="#{myBundle.CreateFuncionarioTitle_lotacao}" required="true" requiredMessage="#{myBundle.CreateFuncionarioRequiredMessage_lotacao}" size="30" maxlength="30"/>
+
+                                </p:fieldset>
+                                <br /><br />
+                                <p:fieldset legend="Endereço">
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_logradouro}" for="logradouro" />
+                                <p:inputText id="logradouro" value="#{funcionarioController.selected.logradouro}" title="#{myBundle.CreateFuncionarioTitle_logradouro}" size="120" maxlength="120"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_bairro}" for="bairro" />
+                                <p:inputText id="bairro" value="#{funcionarioController.selected.bairro}" title="#{myBundle.CreateFuncionarioTitle_bairro}" size="30" maxlength="30"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_cidade}" for="cidade" />
+                                <p:inputText id="cidade" value="#{funcionarioController.selected.cidade}" title="#{myBundle.CreateFuncionarioTitle_cidade}" size="30" maxlength="30"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_estado}" for="estado" />
+                                <p:inputText id="estado" value="#{funcionarioController.selected.estado}" title="#{myBundle.CreateFuncionarioTitle_estado}" size="2" maxlength="2"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_pais}" for="pais" />
+                                <p:inputText id="pais" value="#{funcionarioController.selected.pais}" title="#{myBundle.CreateFuncionarioTitle_pais}" size="30" maxlength="30"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_num}" for="num" />
+                                <p:inputText id="num" value="#{funcionarioController.selected.num}" title="#{myBundle.CreateFuncionarioTitle_num}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_sexo}" for="sexo" />
+                                <p:inputText id="sexo" value="#{funcionarioController.selected.sexo}" title="#{myBundle.CreateFuncionarioTitle_sexo}" required="true" requiredMessage="#{myBundle.CreateFuncionarioRequiredMessage_sexo}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_nomeFuncionario}" for="nomeFuncionario" />
+                                <p:inputText id="nomeFuncionario" value="#{funcionarioController.selected.nomeFuncionario}" title="#{myBundle.CreateFuncionarioTitle_nomeFuncionario}" required="true" requiredMessage="#{myBundle.CreateFuncionarioRequiredMessage_nomeFuncionario}" size="30" maxlength="30"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_username}" for="username" />
+                                <p:inputText id="username" value="#{funcionarioController.selected.username}" title="#{myBundle.CreateFuncionarioTitle_username}" size="15" maxlength="15"/>
+                                </p:fieldset>
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="FuncionarioTab2" title="Dados Pessoais">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_nomerole}" for="nomerole" />
+                                <p:inputText id="nomerole" value="#{funcionarioController.selected.nomerole}" title="#{myBundle.CreateFuncionarioTitle_nomerole}" size="20" maxlength="20"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_email}" for="email" />
+                                <p:inputText id="email" value="#{funcionarioController.selected.email}" title="#{myBundle.CreateFuncionarioTitle_email}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_idUser}" for="idUser" />
+                                <p:selectOneMenu id="idUser" value="#{funcionarioController.selected.idUser}"  converter="usersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{usersController.items}"
+                                                   var="idUserItem"
+                                                   itemValue="#{idUserItem}"
+                                                   itemLabel="#{idUserItem.username.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateFuncionarioLabel_idRole}" for="idRole" />
+                                <p:selectOneMenu id="idRole" value="#{funcionarioController.selected.nomerole}"  converter="rolerConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{rolerController.items}"
+                                                   var="idRoleItem"
+                                                   itemValue="#{idRoleItem}"
+                                                   itemLabel="#{idRoleItem.nomerole.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+                              
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{funcionarioController.saveNew}" value="#{myBundle.Save}" update="display,:FuncionarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,FuncionarioCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="FuncionarioCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

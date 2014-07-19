@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="GrupoembalagemEditDlg" widgetVar="GrupoembalagemEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditGrupoembalagemTitle}" closeOnEscape="true">
+
+            <h:form id="GrupoembalagemEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{grupoembalagemController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditGrupoembalagemLabel_idGrupoembalagem}" for="idGrupoembalagem" />
+                        <h:outputText id="idGrupoembalagem" value="#{grupoembalagemController.selected.idGrupoembalagem}" />
+
+                        <p:outputLabel value="#{myBundle.EditGrupoembalagemLabel_grupo}" for="grupo" />
+                        <p:inputText id="grupo" value="#{grupoembalagemController.selected.grupo}" title="#{myBundle.EditGrupoembalagemTitle_grupo}" required="true" requiredMessage="#{myBundle.EditGrupoembalagemRequiredMessage_grupo}" size="3" maxlength="3"/>
+
+                        <p:outputLabel value="#{myBundle.EditGrupoembalagemLabel_risco}" for="risco" />
+                        <p:inputText id="risco" value="#{grupoembalagemController.selected.risco}" title="#{myBundle.EditGrupoembalagemTitle_risco}" required="true" requiredMessage="#{myBundle.EditGrupoembalagemRequiredMessage_risco}" size="15" maxlength="15"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{grupoembalagemController.save}" value="#{myBundle.Save}" update="display,:GrupoembalagemListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,GrupoembalagemEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="GrupoembalagemEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

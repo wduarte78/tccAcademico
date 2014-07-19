@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ToxidadeCreateDlg" widgetVar="ToxidadeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateToxidadeTitle}" closeOnEscape="true">
+
+            <h:form id="ToxidadeCreateForm">
+
+                <h:panelGroup id="display" rendered="#{toxidadeController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateToxidadeLabel_toxMin}" for="toxMin" />
+                        <p:inputText id="toxMin" value="#{toxidadeController.selected.toxMin}" title="#{myBundle.CreateToxidadeTitle_toxMin}" required="true" requiredMessage="#{myBundle.CreateToxidadeRequiredMessage_toxMin}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateToxidadeLabel_toxMax}" for="toxMax" />
+                        <p:inputText id="toxMax" value="#{toxidadeController.selected.toxMax}" title="#{myBundle.CreateToxidadeTitle_toxMax}" required="true" requiredMessage="#{myBundle.CreateToxidadeRequiredMessage_toxMax}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateToxidadeLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{toxidadeController.selected.descricao}" title="#{myBundle.CreateToxidadeTitle_descricao}" required="true" requiredMessage="#{myBundle.CreateToxidadeRequiredMessage_descricao}" size="40" maxlength="40"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{toxidadeController.saveNew}" value="#{myBundle.Save}" update="display,:ToxidadeListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ToxidadeCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ToxidadeCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

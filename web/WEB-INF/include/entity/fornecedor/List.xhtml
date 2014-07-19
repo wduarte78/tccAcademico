@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="FornecedorListForm">
+
+        <p:panel header="#{myBundle.ListFornecedorTitle}">
+            <p:contextMenu id="FornecedorDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('FornecedorListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('FornecedorListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('FornecedorListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('FornecedorListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.FornecedorMenuItem_produtoCollection}" icon="ui-icon-search"  action="#{fornecedorController.navigateProdutoCollection}" disabled="#{empty fornecedorController.selected.produtoCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.FornecedorMenuItem_detalheNotaCollection}" icon="ui-icon-search"  action="#{fornecedorController.navigateDetalheNotaCollection}" disabled="#{empty fornecedorController.selected.detalheNotaCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.FornecedorMenuItem_enderecoidEndereco}" icon="ui-icon-search"  actionListener="#{fornecedorController.prepareEnderecoidEndereco}" update=":EnderecoViewForm" oncomplete="EnderecoViewDialog.show()" disabled="#{empty fornecedorController.selected.enderecoidEndereco}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{fornecedorController.items}"
+                         var="item"
+                         rowKey="#{item.idFornecedor}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{fornecedorController.selected}">
+
+                <p:ajax event="rowSelect"   update=":FornecedorListForm:createButton :FornecedorListForm:viewButton :FornecedorListForm:editButton :FornecedorListForm:deleteButton :FornecedorListForm:FornecedorDataTableContextMenu" listener="#{fornecedorController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":FornecedorListForm:createButton :FornecedorListForm:viewButton :FornecedorListForm:editButton :FornecedorListForm:deleteButton :FornecedorListForm:FornecedorDataTableContextMenu" listener="#{fornecedorController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('FornecedorListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idFornecedor}" filterBy="#{item.idFornecedor}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFornecedorTitle_idFornecedor}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idFornecedor}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.razaosocial}" filterBy="#{item.razaosocial}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFornecedorTitle_razaosocial}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.razaosocial}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nomefantasia}" filterBy="#{item.nomefantasia}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFornecedorTitle_nomefantasia}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nomefantasia}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cnpj}" filterBy="#{item.cnpj}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFornecedorTitle_cnpj}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cnpj}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.logradouro}" filterBy="#{item.logradouro}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFornecedorTitle_logradouro}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.logradouro}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.bairro}" filterBy="#{item.bairro}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFornecedorTitle_bairro}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.bairro}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.cidade}" filterBy="#{item.cidade}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFornecedorTitle_cidade}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cidade}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFornecedorTitle_estado}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.estado}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.num}" filterBy="#{item.num}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFornecedorTitle_num}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.num}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.pais}" filterBy="#{item.pais}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFornecedorTitle_pais}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.pais}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.email}" filterBy="#{item.email}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFornecedorTitle_email}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.email}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.cep}" filterBy="#{item.cep}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFornecedorTitle_cep}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cep}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.enderecoidEndereco.idEndereco}" filterBy="#{item.enderecoidEndereco.idEndereco}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFornecedorTitle_enderecoidEndereco}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.enderecoidEndereco.idEndereco}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{fornecedorController.prepareCreate}" update=":FornecedorCreateForm" oncomplete="FornecedorCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":FornecedorViewForm" oncomplete="FornecedorViewDialog.show()" disabled="#{empty fornecedorController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":FornecedorEditForm" oncomplete="FornecedorEditDialog.show()" disabled="#{empty fornecedorController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{fornecedorController.delete}" update=":growl,datalist" disabled="#{empty fornecedorController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

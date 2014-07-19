@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalheNotaCreateDlg" widgetVar="DetalheNotaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateDetalheNotaTitle}" closeOnEscape="true">
+
+            <h:form id="DetalheNotaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{detalheNotaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheNotaLabel_numNota}" for="numNota" />
+                        <p:inputText id="numNota" value="#{detalheNotaController.selected.numNota}" title="#{myBundle.CreateDetalheNotaTitle_numNota}" required="true" requiredMessage="#{myBundle.CreateDetalheNotaRequiredMessage_numNota}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheNotaLabel_dtPedido}" for="dtPedido" />
+                        <p:calendar id="dtPedido" pattern="MM/dd/yyyy" value="#{detalheNotaController.selected.dtPedido}" title="#{myBundle.CreateDetalheNotaTitle_dtPedido}" required="true" requiredMessage="#{myBundle.CreateDetalheNotaRequiredMessage_dtPedido}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheNotaLabel_valorTotal}" for="valorTotal" />
+                        <p:inputText id="valorTotal" value="#{detalheNotaController.selected.valorTotal}" title="#{myBundle.CreateDetalheNotaTitle_valorTotal}" required="true" requiredMessage="#{myBundle.CreateDetalheNotaRequiredMessage_valorTotal}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheNotaLabel_valorUnitario}" for="valorUnitario" />
+                        <p:inputText id="valorUnitario" value="#{detalheNotaController.selected.valorUnitario}" title="#{myBundle.CreateDetalheNotaTitle_valorUnitario}" required="true" requiredMessage="#{myBundle.CreateDetalheNotaRequiredMessage_valorUnitario}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheNotaLabel_qtdProduto}" for="qtdProduto" />
+                        <p:inputText id="qtdProduto" value="#{detalheNotaController.selected.qtdProduto}" title="#{myBundle.CreateDetalheNotaTitle_qtdProduto}" required="true" requiredMessage="#{myBundle.CreateDetalheNotaRequiredMessage_qtdProduto}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheNotaLabel_idProduto}" for="idProduto" />
+                        <p:inputText id="idProduto" value="#{detalheNotaController.selected.idProduto}" title="#{myBundle.CreateDetalheNotaTitle_idProduto}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheNotaLabel_nomeProduto}" for="nomeProduto" />
+                        <p:inputText id="nomeProduto" value="#{detalheNotaController.selected.nomeProduto}" title="#{myBundle.CreateDetalheNotaTitle_nomeProduto}" required="true" requiredMessage="#{myBundle.CreateDetalheNotaRequiredMessage_nomeProduto}" size="120" maxlength="120"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheNotaLabel_compatibilidade}" for="compatibilidade" />
+                        <p:inputText id="compatibilidade" value="#{detalheNotaController.selected.compatibilidade}" title="#{myBundle.CreateDetalheNotaTitle_compatibilidade}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheNotaLabel_tipoEquipamentoidTipoEquipamento}" for="tipoEquipamentoidTipoEquipamento" />
+                        <p:selectOneMenu id="tipoEquipamentoidTipoEquipamento" value="#{detalheNotaController.selected.tipoEquipamentoidTipoEquipamento}" required="true" requiredMessage="#{myBundle.CreateDetalheNotaRequiredMessage_tipoEquipamentoidTipoEquipamento}" converter="tipoEquipamentoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoEquipamentoController.items}"
+                                           var="tipoEquipamentoidTipoEquipamentoItem"
+                                           itemValue="#{tipoEquipamentoidTipoEquipamentoItem}"
+                                           itemLabel="#{tipoEquipamentoidTipoEquipamentoItem.idTipoEquipamento.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheNotaLabel_fornecedoridFornecedor}" for="fornecedoridFornecedor" />
+                        <p:selectOneMenu id="fornecedoridFornecedor" value="#{detalheNotaController.selected.fornecedoridFornecedor}" required="true" requiredMessage="#{myBundle.CreateDetalheNotaRequiredMessage_fornecedoridFornecedor}" converter="fornecedorConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{fornecedorController.items}"
+                                           var="fornecedoridFornecedorItem"
+                                           itemValue="#{fornecedoridFornecedorItem}"
+                                           itemLabel="#{fornecedoridFornecedorItem.idFornecedor.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheNotaLabel_embalagemidEmbalgem}" for="embalagemidEmbalgem" />
+                        <p:selectOneMenu id="embalagemidEmbalgem" value="#{detalheNotaController.selected.embalagemidEmbalgem}" required="true" requiredMessage="#{myBundle.CreateDetalheNotaRequiredMessage_embalagemidEmbalgem}" converter="embalagemConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{embalagemController.items}"
+                                           var="embalagemidEmbalgemItem"
+                                           itemValue="#{embalagemidEmbalgemItem}"
+                                           itemLabel="#{embalagemidEmbalgemItem.idEmbalgem.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheNotaLabel_idClasse}" for="idClasse" />
+                        <p:selectOneMenu id="idClasse" value="#{detalheNotaController.selected.idClasse}"  converter="classeConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{classeController.items}"
+                                           var="idClasseItem"
+                                           itemValue="#{idClasseItem}"
+                                           itemLabel="#{idClasseItem.descricao.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalheNotaController.saveNew}" value="#{myBundle.Save}" update="display,:DetalheNotaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,DetalheNotaCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="DetalheNotaCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

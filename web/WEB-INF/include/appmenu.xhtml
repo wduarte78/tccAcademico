@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{myBundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{myBundle.Maintenance}">
+                    <p:menuitem value="#{myBundle.ArmazemHeading}..." outcome="/entity/armazem/index" />
+                    <p:menuitem value="#{myBundle.CidadeHeading}..." outcome="/entity/cidade/index" />
+                    <p:menuitem value="#{myBundle.ClasseHeading}..." outcome="/entity/classe/index" />
+                    <p:menuitem value="#{myBundle.CombustivelHeading}..." outcome="/entity/combustivel/index" />
+                    <p:menuitem value="#{myBundle.DetalheNotaHeading}..." outcome="/entity/detalheNota/index" />
+                    <p:menuitem value="#{myBundle.EmbalagemHeading}..." outcome="/entity/embalagem/index" />
+                    <p:menuitem value="#{myBundle.EndArmazemHeading}..." outcome="/entity/endArmazem/index" />
+                    <p:menuitem value="#{myBundle.EnderecoHeading}..." outcome="/entity/endereco/index" />
+                    <p:menuitem value="#{myBundle.EpeHeading}..." outcome="/entity/epe/index" />
+                    <p:menuitem value="#{myBundle.EpiHeading}..." outcome="/entity/epi/index" />
+                    <p:menuitem value="#{myBundle.EspcifPedidoHeading}..." outcome="/entity/espcifPedido/index" />
+                    <p:menuitem value="#{myBundle.EstadoHeading}..." outcome="/entity/estado/index" />
+                    <p:menuitem value="#{myBundle.FornecedorHeading}..." outcome="/entity/fornecedor/index" />
+                    <p:menuitem value="#{myBundle.FuncionarioHeading}..." outcome="/entity/funcionario/index" />
+                    <p:menuitem value="#{myBundle.GrupoembalagemHeading}..." outcome="/entity/grupoembalagem/index" />
+                    <p:menuitem value="#{myBundle.LegendaHeading}..." outcome="/entity/legenda/index" />
+                    <p:menuitem value="#{myBundle.LocalOperacaoHeading}..." outcome="/entity/localOperacao/index" />
+                    <p:menuitem value="#{myBundle.MaterialHeading}..." outcome="/entity/material/index" />
+                    <p:menuitem value="#{myBundle.MovimentacaoHeading}..." outcome="/entity/movimentacao/index" />
+                    <p:menuitem value="#{myBundle.NumOnuHeading}..." outcome="/entity/numOnu/index" />
+                    <p:menuitem value="#{myBundle.PaisHeading}..." outcome="/entity/pais/index" />
+                    <p:menuitem value="#{myBundle.ProdutoHeading}..." outcome="/entity/produto/index" />
+                    <p:menuitem value="#{myBundle.PtEbulicaoHeading}..." outcome="/entity/ptEbulicao/index" />
+                    <p:menuitem value="#{myBundle.PtFulgorHeading}..." outcome="/entity/ptFulgor/index" />
+                    <p:menuitem value="#{myBundle.RolerHeading}..." outcome="/entity/roler/index" />
+                    <p:menuitem value="#{myBundle.StatusArmazemHeading}..." outcome="/entity/statusArmazem/index" />
+                    <p:menuitem value="#{myBundle.TipoEmbalagemHeading}..." outcome="/entity/tipoEmbalagem/index" />
+                    <p:menuitem value="#{myBundle.TipoEquipamentoHeading}..." outcome="/entity/tipoEquipamento/index" />
+                    <p:menuitem value="#{myBundle.TipoMovimentacaoHeading}..." outcome="/entity/tipoMovimentacao/index" />
+                    <p:menuitem value="#{myBundle.TipoPedidoHeading}..." outcome="/entity/tipoPedido/index" />
+                    <p:menuitem value="#{myBundle.ToxidadeHeading}..." outcome="/entity/toxidade/index" />
+                    <p:menuitem value="#{myBundle.UsersHeading}..." outcome="/entity/users/index" />
+                    <p:menuitem value="#{myBundle.VeiculoHeading}..." outcome="/entity/veiculo/index" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

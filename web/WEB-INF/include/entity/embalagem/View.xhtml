@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmbalagemViewDlg" widgetVar="EmbalagemViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewEmbalagemTitle}" closeOnEscape="true">
+
+            <h:form id="EmbalagemViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{embalagemController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_idEmbalgem}"/>
+                        <h:outputText value="#{embalagemController.selected.idEmbalgem}" title="#{myBundle.ViewEmbalagemTitle_idEmbalgem}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_capacidade}"/>
+                        <h:outputText value="#{embalagemController.selected.capacidade}" title="#{myBundle.ViewEmbalagemTitle_capacidade}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_especeficacao}"/>
+                        <h:outputText value="#{embalagemController.selected.especeficacao}" title="#{myBundle.ViewEmbalagemTitle_especeficacao}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_condicoes}"/>
+                        <h:outputText value="#{embalagemController.selected.condicoes}" title="#{myBundle.ViewEmbalagemTitle_condicoes}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_dtfabricacao}"/>
+                        <h:outputText value="#{embalagemController.selected.dtfabricacao}" title="#{myBundle.ViewEmbalagemTitle_dtfabricacao}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_certificado}"/>
+                        <h:outputText value="#{embalagemController.selected.certificado}" title="#{myBundle.ViewEmbalagemTitle_certificado}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_validadecert}"/>
+                        <h:outputText value="#{embalagemController.selected.validadecert}" title="#{myBundle.ViewEmbalagemTitle_validadecert}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_valorunitario}"/>
+                        <h:outputText value="#{embalagemController.selected.valorunitario}" title="#{myBundle.ViewEmbalagemTitle_valorunitario}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_compatibilidade}"/>
+                        <h:outputText value="#{embalagemController.selected.compatibilidade}" title="#{myBundle.ViewEmbalagemTitle_compatibilidade}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_grupo}"/>
+                        <h:outputText value="#{embalagemController.selected.grupo}" title="#{myBundle.ViewEmbalagemTitle_grupo}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_tipoMaterial}"/>
+                        <h:outputText value="#{embalagemController.selected.tipoMaterial}" title="#{myBundle.ViewEmbalagemTitle_tipoMaterial}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_tipoEmbalagemidTipoEmbalagem}"/>
+                        <h:outputText value="#{embalagemController.selected.tipoEmbalagemidTipoEmbalagem.idTipoEmbalagem}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_materialidMaterial}"/>
+                        <h:outputText value="#{embalagemController.selected.materialidMaterial.idMaterial}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_grupoembalagemidGrupoembalagem}"/>
+                        <h:outputText value="#{embalagemController.selected.grupoembalagemidGrupoembalagem.idGrupoembalagem}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmbalagemLabel_idClasse}"/>
+                        <h:outputText value="#{embalagemController.selected.idClasse.descricao}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="EmbalagemViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

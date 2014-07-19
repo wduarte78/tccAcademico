@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GrupoembalagemViewDlg" widgetVar="GrupoembalagemViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewGrupoembalagemTitle}" closeOnEscape="true">
+
+            <h:form id="GrupoembalagemViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{grupoembalagemController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewGrupoembalagemLabel_idGrupoembalagem}"/>
+                        <h:outputText value="#{grupoembalagemController.selected.idGrupoembalagem}" title="#{myBundle.ViewGrupoembalagemTitle_idGrupoembalagem}"/>
+
+                        <h:outputText value="#{myBundle.ViewGrupoembalagemLabel_grupo}"/>
+                        <h:outputText value="#{grupoembalagemController.selected.grupo}" title="#{myBundle.ViewGrupoembalagemTitle_grupo}"/>
+
+                        <h:outputText value="#{myBundle.ViewGrupoembalagemLabel_risco}"/>
+                        <h:outputText value="#{grupoembalagemController.selected.risco}" title="#{myBundle.ViewGrupoembalagemTitle_risco}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="GrupoembalagemViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

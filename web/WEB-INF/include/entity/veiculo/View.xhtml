@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VeiculoViewDlg" widgetVar="VeiculoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewVeiculoTitle}" closeOnEscape="true">
+
+            <h:form id="VeiculoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{veiculoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewVeiculoLabel_idVeiculo}"/>
+                        <h:outputText value="#{veiculoController.selected.idVeiculo}" title="#{myBundle.ViewVeiculoTitle_idVeiculo}"/>
+
+                        <h:outputText value="#{myBundle.ViewVeiculoLabel_nome}"/>
+                        <h:outputText value="#{veiculoController.selected.nome}" title="#{myBundle.ViewVeiculoTitle_nome}"/>
+
+                        <h:outputText value="#{myBundle.ViewVeiculoLabel_modelo}"/>
+                        <h:outputText value="#{veiculoController.selected.modelo}" title="#{myBundle.ViewVeiculoTitle_modelo}"/>
+
+                        <h:outputText value="#{myBundle.ViewVeiculoLabel_fabricante}"/>
+                        <h:outputText value="#{veiculoController.selected.fabricante}" title="#{myBundle.ViewVeiculoTitle_fabricante}"/>
+
+                        <h:outputText value="#{myBundle.ViewVeiculoLabel_chassi}"/>
+                        <h:outputText value="#{veiculoController.selected.chassi}" title="#{myBundle.ViewVeiculoTitle_chassi}"/>
+
+                        <h:outputText value="#{myBundle.ViewVeiculoLabel_placa}"/>
+                        <h:outputText value="#{veiculoController.selected.placa}" title="#{myBundle.ViewVeiculoTitle_placa}"/>
+
+                        <h:outputText value="#{myBundle.ViewVeiculoLabel_cor}"/>
+                        <h:outputText value="#{veiculoController.selected.cor}" title="#{myBundle.ViewVeiculoTitle_cor}"/>
+
+                        <h:outputText value="#{myBundle.ViewVeiculoLabel_ano}"/>
+                        <h:outputText value="#{veiculoController.selected.ano}" title="#{myBundle.ViewVeiculoTitle_ano}"/>
+
+                        <h:outputText value="#{myBundle.ViewVeiculoLabel_nomeCombustivel}"/>
+                        <h:outputText value="#{veiculoController.selected.nomeCombustivel}" title="#{myBundle.ViewVeiculoTitle_nomeCombustivel}"/>
+
+                        <h:outputText value="#{myBundle.ViewVeiculoLabel_combustivelidCombustivel}"/>
+                        <h:outputText value="#{veiculoController.selected.combustivelidCombustivel.idCombustivel}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="VeiculoViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

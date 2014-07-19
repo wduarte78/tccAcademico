@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="FuncionarioListForm">
+
+        <p:panel header="#{myBundle.ListFuncionarioTitle}">
+            <p:contextMenu id="FuncionarioDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('FuncionarioListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('FuncionarioListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('FuncionarioListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('FuncionarioListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.FuncionarioMenuItem_movimentacaoCollection}" icon="ui-icon-search"  action="#{funcionarioController.navigateMovimentacaoCollection}" disabled="#{empty funcionarioController.selected.movimentacaoCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.FuncionarioMenuItem_idUser}" icon="ui-icon-search"  actionListener="#{funcionarioController.prepareIdUser}" update=":UsersViewForm" oncomplete="UsersViewDialog.show()" disabled="#{empty funcionarioController.selected.idUser}"/>  
+                <p:menuitem value="#{myBundle.FuncionarioMenuItem_idRole}" icon="ui-icon-search"  actionListener="#{funcionarioController.prepareIdRole}" update=":RolerViewForm" oncomplete="RolerViewDialog.show()" disabled="#{empty funcionarioController.selected.idRole}"/>  
+                <p:menuitem value="#{myBundle.FuncionarioMenuItem_enderecoidEndereco}" icon="ui-icon-search"  actionListener="#{funcionarioController.prepareEnderecoidEndereco}" update=":EnderecoViewForm" oncomplete="EnderecoViewDialog.show()" disabled="#{empty funcionarioController.selected.enderecoidEndereco}"/>  
+                <p:menuitem value="#{myBundle.FuncionarioMenuItem_tipoMovimentacaoCollection}" icon="ui-icon-search"  action="#{funcionarioController.navigateTipoMovimentacaoCollection}" disabled="#{empty funcionarioController.selected.tipoMovimentacaoCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{funcionarioController.items}"
+                         var="item"
+                         rowKey="#{item.idFuncionario}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{funcionarioController.selected}">
+
+                <p:ajax event="rowSelect"   update=":FuncionarioListForm:createButton :FuncionarioListForm:viewButton :FuncionarioListForm:editButton :FuncionarioListForm:deleteButton :FuncionarioListForm:FuncionarioDataTableContextMenu" listener="#{funcionarioController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":FuncionarioListForm:createButton :FuncionarioListForm:viewButton :FuncionarioListForm:editButton :FuncionarioListForm:deleteButton :FuncionarioListForm:FuncionarioDataTableContextMenu" listener="#{funcionarioController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('FuncionarioListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idFuncionario}" filterBy="#{item.idFuncionario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFuncionarioTitle_idFuncionario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idFuncionario}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.sobrenome}" filterBy="#{item.sobrenome}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFuncionarioTitle_sobrenome}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.sobrenome}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.matricula}" filterBy="#{item.matricula}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFuncionarioTitle_matricula}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.matricula}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.funcao}" filterBy="#{item.funcao}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFuncionarioTitle_funcao}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.funcao}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.especializacao}" filterBy="#{item.especializacao}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFuncionarioTitle_especializacao}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.especializacao}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dtadmissao}" filterBy="#{item.dtadmissao}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFuncionarioTitle_dtadmissao}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dtadmissao}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.cpf}" filterBy="#{item.cpf}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_cpf}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cpf}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.rg}" filterBy="#{item.rg}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_rg}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.rg}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.dtnasc}" filterBy="#{item.dtnasc}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_dtnasc}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.dtnasc}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.cargo}" filterBy="#{item.cargo}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_cargo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cargo}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.nivel}" filterBy="#{item.nivel}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_nivel}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nivel}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.lotacao}" filterBy="#{item.lotacao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_lotacao}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.lotacao}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.logradouro}" filterBy="#{item.logradouro}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_logradouro}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.logradouro}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.bairro}" filterBy="#{item.bairro}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_bairro}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.bairro}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.cidade}" filterBy="#{item.cidade}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_cidade}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cidade}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_estado}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.estado}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.pais}" filterBy="#{item.pais}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_pais}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.pais}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.num}" filterBy="#{item.num}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_num}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.num}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.sexo}" filterBy="#{item.sexo}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_sexo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.sexo}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.nomeFuncionario}" filterBy="#{item.nomeFuncionario}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_nomeFuncionario}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nomeFuncionario}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.username}" filterBy="#{item.username}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_username}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.username}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.nomerole}" filterBy="#{item.nomerole}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_nomerole}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nomerole}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.email}" filterBy="#{item.email}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_email}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.email}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idUser.username}" filterBy="#{item.idUser.username}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_idUser}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idUser.username}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idRole.idRole}" filterBy="#{item.idRole.idRole}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_idRole}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idRole.idRole}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.enderecoidEndereco.idEndereco}" filterBy="#{item.enderecoidEndereco.idEndereco}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFuncionarioTitle_enderecoidEndereco}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.enderecoidEndereco.idEndereco}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{funcionarioController.prepareCreate}" update=":FuncionarioCreateForm" oncomplete="FuncionarioCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":FuncionarioViewForm" oncomplete="FuncionarioViewDialog.show()" disabled="#{empty funcionarioController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":FuncionarioEditForm" oncomplete="FuncionarioEditDialog.show()" disabled="#{empty funcionarioController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{funcionarioController.delete}" update=":growl,datalist" disabled="#{empty funcionarioController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

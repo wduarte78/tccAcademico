@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PtFulgorListForm">
+
+        <p:panel header="#{myBundle.ListPtFulgorTitle}">
+            <p:contextMenu id="PtFulgorDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('PtFulgorListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('PtFulgorListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('PtFulgorListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('PtFulgorListForm:deleteButton').click();" icon="ui-icon-trash"/>
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{ptFulgorController.items}"
+                         var="item"
+                         rowKey="#{item.idPtFulgor}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{ptFulgorController.selected}">
+
+                <p:ajax event="rowSelect"   update=":PtFulgorListForm:createButton :PtFulgorListForm:viewButton :PtFulgorListForm:editButton :PtFulgorListForm:deleteButton :PtFulgorListForm:PtFulgorDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update=":PtFulgorListForm:createButton :PtFulgorListForm:viewButton :PtFulgorListForm:editButton :PtFulgorListForm:deleteButton :PtFulgorListForm:PtFulgorDataTableContextMenu"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PtFulgorListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idPtFulgor}" filterBy="#{item.idPtFulgor}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPtFulgorTitle_idPtFulgor}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPtFulgor}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ptFulgMin}" filterBy="#{item.ptFulgMin}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPtFulgorTitle_ptFulgMin}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ptFulgMin}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ptFulgMax}" filterBy="#{item.ptFulgMax}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPtFulgorTitle_ptFulgMax}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ptFulgMax}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descricao}" filterBy="#{item.descricao}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPtFulgorTitle_descricao}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descricao}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{ptFulgorController.prepareCreate}" update=":PtFulgorCreateForm" oncomplete="PtFulgorCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":PtFulgorViewForm" oncomplete="PtFulgorViewDialog.show()" disabled="#{empty ptFulgorController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PtFulgorEditForm" oncomplete="PtFulgorEditDialog.show()" disabled="#{empty ptFulgorController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{ptFulgorController.delete}" update=":growl,datalist" disabled="#{empty ptFulgorController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

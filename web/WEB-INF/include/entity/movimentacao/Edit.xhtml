@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MovimentacaoEditDlg" widgetVar="MovimentacaoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditMovimentacaoTitle}" closeOnEscape="true">
+
+            <h:form id="MovimentacaoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{movimentacaoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditMovimentacaoLabel_idMovimentacao}" for="idMovimentacao" />
+                        <h:outputText id="idMovimentacao" value="#{movimentacaoController.selected.idMovimentacao}" />
+
+                        <p:outputLabel value="#{myBundle.EditMovimentacaoLabel_dtPrevista}" for="dtPrevista" />
+                        <p:calendar id="dtPrevista" pattern="MM/dd/yyyy" value="#{movimentacaoController.selected.dtPrevista}" title="#{myBundle.EditMovimentacaoTitle_dtPrevista}" required="true" requiredMessage="#{myBundle.EditMovimentacaoRequiredMessage_dtPrevista}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditMovimentacaoLabel_dtRealizacao}" for="dtRealizacao" />
+                        <p:calendar id="dtRealizacao" pattern="MM/dd/yyyy" value="#{movimentacaoController.selected.dtRealizacao}" title="#{myBundle.EditMovimentacaoTitle_dtRealizacao}" required="true" requiredMessage="#{myBundle.EditMovimentacaoRequiredMessage_dtRealizacao}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditMovimentacaoLabel_qtdFuncionario}" for="qtdFuncionario" />
+                        <p:inputText id="qtdFuncionario" value="#{movimentacaoController.selected.qtdFuncionario}" title="#{myBundle.EditMovimentacaoTitle_qtdFuncionario}" required="true" requiredMessage="#{myBundle.EditMovimentacaoRequiredMessage_qtdFuncionario}"/>
+
+                        <p:outputLabel value="#{myBundle.EditMovimentacaoLabel_horario}" for="horario" />
+                        <p:calendar id="horario" pattern="HH:mm:ss" value="#{movimentacaoController.selected.horario}" title="#{myBundle.EditMovimentacaoTitle_horario}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditMovimentacaoLabel_duracaoPrevista}" for="duracaoPrevista" />
+                        <p:calendar id="duracaoPrevista" pattern="HH:mm:ss" value="#{movimentacaoController.selected.duracaoPrevista}" title="#{myBundle.EditMovimentacaoTitle_duracaoPrevista}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditMovimentacaoLabel_compatibilidade}" for="compatibilidade" />
+                        <p:inputText id="compatibilidade" value="#{movimentacaoController.selected.compatibilidade}" title="#{myBundle.EditMovimentacaoTitle_compatibilidade}" required="true" requiredMessage="#{myBundle.EditMovimentacaoRequiredMessage_compatibilidade}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.EditMovimentacaoLabel_localOperacaoidLocalOperacao}" for="localOperacaoidLocalOperacao" />
+                        <p:selectOneMenu id="localOperacaoidLocalOperacao" value="#{movimentacaoController.selected.localOperacaoidLocalOperacao}" required="true" requiredMessage="#{myBundle.EditMovimentacaoRequiredMessage_localOperacaoidLocalOperacao}" converter="localOperacaoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{localOperacaoController.items}"
+                                           var="localOperacaoidLocalOperacaoItem"
+                                           itemValue="#{localOperacaoidLocalOperacaoItem}"
+                                           itemLabel="#{localOperacaoidLocalOperacaoItem.locDescricao.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditMovimentacaoLabel_responsavel}" for="responsavel" />
+                        <p:selectOneMenu id="responsavel" value="#{movimentacaoController.selected.responsavel}" required="true" requiredMessage="#{myBundle.EditMovimentacaoRequiredMessage_responsavel}" converter="funcionarioConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{funcionarioController.items}"
+                                           var="responsavelItem"
+                                           itemValue="#{responsavelItem}"
+                                           itemLabel="#{responsavelItem.username.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditMovimentacaoLabel_idClasse}" for="idClasse" />
+                        <p:selectOneMenu id="idClasse" value="#{movimentacaoController.selected.idClasse}" required="true" requiredMessage="#{myBundle.EditMovimentacaoRequiredMessage_idClasse}" converter="classeConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{classeController.items}"
+                                           var="idClasseItem"
+                                           itemValue="#{idClasseItem}"
+                                           itemLabel="#{idClasseItem.descricao.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{movimentacaoController.save}" value="#{myBundle.Save}" update="display,:MovimentacaoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,MovimentacaoEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="MovimentacaoEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

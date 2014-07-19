@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoMovimentacaoEditDlg" widgetVar="TipoMovimentacaoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipoMovimentacaoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoMovimentacaoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoMovimentacaoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipoMovimentacaoLabel_idTipoMovimentacao}" for="idTipoMovimentacao" />
+                        <h:outputText id="idTipoMovimentacao" value="#{tipoMovimentacaoController.selected.idTipoMovimentacao}" />
+
+                        <p:outputLabel value="#{myBundle.EditTipoMovimentacaoLabel_tipoMovimentacao}" for="tipoMovimentacao" />
+                        <p:inputText id="tipoMovimentacao" value="#{tipoMovimentacaoController.selected.tipoMovimentacao}" title="#{myBundle.EditTipoMovimentacaoTitle_tipoMovimentacao}" required="true" requiredMessage="#{myBundle.EditTipoMovimentacaoRequiredMessage_tipoMovimentacao}"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipoMovimentacaoLabel_matricula}" for="matricula" />
+                        <p:inputText id="matricula" value="#{tipoMovimentacaoController.selected.matricula}" title="#{myBundle.EditTipoMovimentacaoTitle_matricula}" required="true" requiredMessage="#{myBundle.EditTipoMovimentacaoRequiredMessage_matricula}"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipoMovimentacaoLabel_tipoPedido}" for="tipoPedido" />
+                        <p:inputText id="tipoPedido" value="#{tipoMovimentacaoController.selected.tipoPedido}" title="#{myBundle.EditTipoMovimentacaoTitle_tipoPedido}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipoMovimentacaoLabel_idEspecPedido}" for="idEspecPedido" />
+                        <p:inputText id="idEspecPedido" value="#{tipoMovimentacaoController.selected.idEspecPedido}" title="#{myBundle.EditTipoMovimentacaoTitle_idEspecPedido}" required="true" requiredMessage="#{myBundle.EditTipoMovimentacaoRequiredMessage_idEspecPedido}"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipoMovimentacaoLabel_especPedido}" for="especPedido" />
+                        <p:inputText id="especPedido" value="#{tipoMovimentacaoController.selected.especPedido}" title="#{myBundle.EditTipoMovimentacaoTitle_especPedido}" size="40" maxlength="40"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipoMovimentacaoLabel_nomeFuncionario}" for="nomeFuncionario" />
+                        <p:inputText id="nomeFuncionario" value="#{tipoMovimentacaoController.selected.nomeFuncionario}" title="#{myBundle.EditTipoMovimentacaoTitle_nomeFuncionario}" size="60" maxlength="60"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipoMovimentacaoLabel_observacoes}" for="observacoes" />
+                        <p:inputText id="observacoes" value="#{tipoMovimentacaoController.selected.observacoes}" title="#{myBundle.EditTipoMovimentacaoTitle_observacoes}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipoMovimentacaoLabel_idTipoPedido}" for="idTipoPedido" />
+                        <p:selectOneMenu id="idTipoPedido" value="#{tipoMovimentacaoController.selected.idTipoPedido}"  converter="tipoPedidoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoPedidoController.items}"
+                                           var="idTipoPedidoItem"
+                                           itemValue="#{idTipoPedidoItem}"
+                                           itemLabel="#{idTipoPedidoItem.idTipoPedido.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditTipoMovimentacaoLabel_idFuncionario}" for="idFuncionario" />
+                        <p:selectOneMenu id="idFuncionario" value="#{tipoMovimentacaoController.selected.idFuncionario}" required="true" requiredMessage="#{myBundle.EditTipoMovimentacaoRequiredMessage_idFuncionario}" converter="funcionarioConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{funcionarioController.items}"
+                                           var="idFuncionarioItem"
+                                           itemValue="#{idFuncionarioItem}"
+                                           itemLabel="#{idFuncionarioItem.username.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoMovimentacaoController.save}" value="#{myBundle.Save}" update="display,:TipoMovimentacaoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,TipoMovimentacaoEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="TipoMovimentacaoEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="TipoPedidoListForm">
+
+        <p:panel header="#{myBundle.ListTipoPedidoTitle}">
+            <p:contextMenu id="TipoPedidoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('TipoPedidoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('TipoPedidoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('TipoPedidoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('TipoPedidoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.TipoPedidoMenuItem_tipoMovimentacaoCollection}" icon="ui-icon-search"  action="#{tipoPedidoController.navigateTipoMovimentacaoCollection}" disabled="#{empty tipoPedidoController.selected.tipoMovimentacaoCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TipoPedidoMenuItem_idDetalheNota}" icon="ui-icon-search"  actionListener="#{tipoPedidoController.prepareIdDetalheNota}" update=":DetalheNotaViewForm" oncomplete="DetalheNotaViewDialog.show()" disabled="#{empty tipoPedidoController.selected.idDetalheNota}"/>  
+                <p:menuitem value="#{myBundle.TipoPedidoMenuItem_detalheNotaidDetalheNota}" icon="ui-icon-search"  actionListener="#{tipoPedidoController.prepareDetalheNotaidDetalheNota}" update=":DetalheNotaViewForm" oncomplete="DetalheNotaViewDialog.show()" disabled="#{empty tipoPedidoController.selected.detalheNotaidDetalheNota}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{tipoPedidoController.items}"
+                         var="item"
+                         rowKey="#{item.idTipoPedido}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{tipoPedidoController.selected}">
+
+                <p:ajax event="rowSelect"   update=":TipoPedidoListForm:createButton :TipoPedidoListForm:viewButton :TipoPedidoListForm:editButton :TipoPedidoListForm:deleteButton :TipoPedidoListForm:TipoPedidoDataTableContextMenu" listener="#{tipoPedidoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":TipoPedidoListForm:createButton :TipoPedidoListForm:viewButton :TipoPedidoListForm:editButton :TipoPedidoListForm:deleteButton :TipoPedidoListForm:TipoPedidoDataTableContextMenu" listener="#{tipoPedidoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('TipoPedidoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idTipoPedido}" filterBy="#{item.idTipoPedido}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoPedidoTitle_idTipoPedido}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idTipoPedido}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.tipoPedido}" filterBy="#{item.tipoPedido}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoPedidoTitle_tipoPedido}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tipoPedido}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.especifTipopedido}" filterBy="#{item.especifTipopedido}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoPedidoTitle_especifTipopedido}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.especifTipopedido}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.usuarioidUsuario}" filterBy="#{item.usuarioidUsuario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoPedidoTitle_usuarioidUsuario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.usuarioidUsuario}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.numNota}" filterBy="#{item.numNota}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoPedidoTitle_numNota}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.numNota}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.solicitante}" filterBy="#{item.solicitante}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoPedidoTitle_solicitante}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.solicitante}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.idDetalheNota.idDetalheNota}" filterBy="#{item.idDetalheNota.idDetalheNota}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTipoPedidoTitle_idDetalheNota}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idDetalheNota.idDetalheNota}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.detalheNotaidDetalheNota.idDetalheNota}" filterBy="#{item.detalheNotaidDetalheNota.idDetalheNota}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTipoPedidoTitle_detalheNotaidDetalheNota}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.detalheNotaidDetalheNota.idDetalheNota}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{tipoPedidoController.prepareCreate}" update=":TipoPedidoCreateForm" oncomplete="TipoPedidoCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":TipoPedidoViewForm" oncomplete="TipoPedidoViewDialog.show()" disabled="#{empty tipoPedidoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TipoPedidoEditForm" oncomplete="TipoPedidoEditDialog.show()" disabled="#{empty tipoPedidoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{tipoPedidoController.delete}" update=":growl,datalist" disabled="#{empty tipoPedidoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

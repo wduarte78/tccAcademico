@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClasseCreateDlg" widgetVar="ClasseCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateClasseTitle}" closeOnEscape="true">
+
+            <h:form id="ClasseCreateForm">
+
+                <h:panelGroup id="display" rendered="#{classeController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateClasseLabel_classe}" for="classe" />
+                        <p:inputText id="classe" value="#{classeController.selected.classe}" title="#{myBundle.CreateClasseTitle_classe}" required="true" requiredMessage="#{myBundle.CreateClasseRequiredMessage_classe}" size="35" maxlength="35"/>
+
+                        <p:outputLabel value="#{myBundle.CreateClasseLabel_legenda}" for="legenda" />
+                        <p:inputText id="legenda" value="#{classeController.selected.legenda}" title="#{myBundle.CreateClasseTitle_legenda}" required="true" requiredMessage="#{myBundle.CreateClasseRequiredMessage_legenda}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateClasseLabel_compatibilidade}" for="compatibilidade" />
+                        <p:inputText id="compatibilidade" value="#{classeController.selected.compatibilidade}" title="#{myBundle.CreateClasseTitle_compatibilidade}" required="true" requiredMessage="#{myBundle.CreateClasseRequiredMessage_compatibilidade}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateClasseLabel_subclasse}" for="subclasse" />
+                        <p:inputText id="subclasse" value="#{classeController.selected.subclasse}" title="#{myBundle.CreateClasseTitle_subclasse}" required="true" requiredMessage="#{myBundle.CreateClasseRequiredMessage_subclasse}" size="40" maxlength="40"/>
+
+                        <p:outputLabel value="#{myBundle.CreateClasseLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{classeController.selected.descricao}" title="#{myBundle.CreateClasseTitle_descricao}" required="true" requiredMessage="#{myBundle.CreateClasseRequiredMessage_descricao}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.CreateClasseLabel_idLegenda}" for="idLegenda" />
+                        <p:selectOneMenu id="idLegenda" value="#{classeController.selected.idLegenda}"  converter="legendaConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{legendaController.items}"
+                                           var="idLegendaItem"
+                                           itemValue="#{idLegendaItem}"
+                                           itemLabel="#{idLegendaItem.legDescricao.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{classeController.saveNew}" value="#{myBundle.Save}" update="display,:ClasseListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ClasseCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ClasseCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

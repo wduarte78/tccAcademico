@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MovimentacaoListForm">
+
+        <p:panel header="#{myBundle.ListMovimentacaoTitle}">
+            <p:contextMenu id="MovimentacaoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('MovimentacaoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('MovimentacaoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MovimentacaoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MovimentacaoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.MovimentacaoMenuItem_localOperacaoidLocalOperacao}" icon="ui-icon-search"  actionListener="#{movimentacaoController.prepareLocalOperacaoidLocalOperacao}" update=":LocalOperacaoViewForm" oncomplete="LocalOperacaoViewDialog.show()" disabled="#{empty movimentacaoController.selected.localOperacaoidLocalOperacao}"/>  
+                <p:menuitem value="#{myBundle.MovimentacaoMenuItem_responsavel}" icon="ui-icon-search"  actionListener="#{movimentacaoController.prepareResponsavel}" update=":FuncionarioViewForm" oncomplete="FuncionarioViewDialog.show()" disabled="#{empty movimentacaoController.selected.responsavel}"/>  
+                <p:menuitem value="#{myBundle.MovimentacaoMenuItem_idClasse}" icon="ui-icon-search"  actionListener="#{movimentacaoController.prepareIdClasse}" update=":ClasseViewForm" oncomplete="ClasseViewDialog.show()" disabled="#{empty movimentacaoController.selected.idClasse}"/>  
+                <p:menuitem value="#{myBundle.MovimentacaoMenuItem_statusArmazemCollection}" icon="ui-icon-search"  action="#{movimentacaoController.navigateStatusArmazemCollection}" disabled="#{empty movimentacaoController.selected.statusArmazemCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{movimentacaoController.items}"
+                         var="item"
+                         rowKey="#{item.idMovimentacao}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{movimentacaoController.selected}">
+
+                <p:ajax event="rowSelect"   update=":MovimentacaoListForm:createButton :MovimentacaoListForm:viewButton :MovimentacaoListForm:editButton :MovimentacaoListForm:deleteButton :MovimentacaoListForm:MovimentacaoDataTableContextMenu" listener="#{movimentacaoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":MovimentacaoListForm:createButton :MovimentacaoListForm:viewButton :MovimentacaoListForm:editButton :MovimentacaoListForm:deleteButton :MovimentacaoListForm:MovimentacaoDataTableContextMenu" listener="#{movimentacaoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('MovimentacaoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idMovimentacao}" filterBy="#{item.idMovimentacao}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMovimentacaoTitle_idMovimentacao}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idMovimentacao}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dtPrevista}" filterBy="#{item.dtPrevista}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMovimentacaoTitle_dtPrevista}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dtPrevista}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dtRealizacao}" filterBy="#{item.dtRealizacao}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMovimentacaoTitle_dtRealizacao}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dtRealizacao}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.qtdFuncionario}" filterBy="#{item.qtdFuncionario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMovimentacaoTitle_qtdFuncionario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.qtdFuncionario}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.horario}" filterBy="#{item.horario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMovimentacaoTitle_horario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.horario}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.duracaoPrevista}" filterBy="#{item.duracaoPrevista}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMovimentacaoTitle_duracaoPrevista}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.duracaoPrevista}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.compatibilidade}" filterBy="#{item.compatibilidade}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMovimentacaoTitle_compatibilidade}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.compatibilidade}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.localOperacaoidLocalOperacao.locDescricao}" filterBy="#{item.localOperacaoidLocalOperacao.locDescricao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMovimentacaoTitle_localOperacaoidLocalOperacao}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.localOperacaoidLocalOperacao.locDescricao}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.responsavel.username}" filterBy="#{item.responsavel.username}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMovimentacaoTitle_responsavel}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.responsavel.username}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idClasse.descricao}" filterBy="#{item.idClasse.descricao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMovimentacaoTitle_idClasse}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idClasse.descricao}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{movimentacaoController.prepareCreate}" update=":MovimentacaoCreateForm" oncomplete="MovimentacaoCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MovimentacaoViewForm" oncomplete="MovimentacaoViewDialog.show()" disabled="#{empty movimentacaoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MovimentacaoEditForm" oncomplete="MovimentacaoEditDialog.show()" disabled="#{empty movimentacaoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{movimentacaoController.delete}" update=":growl,datalist" disabled="#{empty movimentacaoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

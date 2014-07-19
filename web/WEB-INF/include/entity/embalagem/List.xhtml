@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EmbalagemListForm">
+
+        <p:panel header="#{myBundle.ListEmbalagemTitle}">
+            <p:contextMenu id="EmbalagemDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('EmbalagemListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('EmbalagemListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('EmbalagemListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('EmbalagemListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.EmbalagemMenuItem_tipoEmbalagemidTipoEmbalagem}" icon="ui-icon-search"  actionListener="#{embalagemController.prepareTipoEmbalagemidTipoEmbalagem}" update=":TipoEmbalagemViewForm" oncomplete="TipoEmbalagemViewDialog.show()" disabled="#{empty embalagemController.selected.tipoEmbalagemidTipoEmbalagem}"/>  
+                <p:menuitem value="#{myBundle.EmbalagemMenuItem_materialidMaterial}" icon="ui-icon-search"  actionListener="#{embalagemController.prepareMaterialidMaterial}" update=":MaterialViewForm" oncomplete="MaterialViewDialog.show()" disabled="#{empty embalagemController.selected.materialidMaterial}"/>  
+                <p:menuitem value="#{myBundle.EmbalagemMenuItem_grupoembalagemidGrupoembalagem}" icon="ui-icon-search"  actionListener="#{embalagemController.prepareGrupoembalagemidGrupoembalagem}" update=":GrupoembalagemViewForm" oncomplete="GrupoembalagemViewDialog.show()" disabled="#{empty embalagemController.selected.grupoembalagemidGrupoembalagem}"/>  
+                <p:menuitem value="#{myBundle.EmbalagemMenuItem_idClasse}" icon="ui-icon-search"  actionListener="#{embalagemController.prepareIdClasse}" update=":ClasseViewForm" oncomplete="ClasseViewDialog.show()" disabled="#{empty embalagemController.selected.idClasse}"/>  
+                <p:menuitem value="#{myBundle.EmbalagemMenuItem_detalheNotaCollection}" icon="ui-icon-search"  action="#{embalagemController.navigateDetalheNotaCollection}" disabled="#{empty embalagemController.selected.detalheNotaCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{embalagemController.items}"
+                         var="item"
+                         rowKey="#{item.idEmbalgem}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{embalagemController.selected}">
+
+                <p:ajax event="rowSelect"   update=":EmbalagemListForm:createButton :EmbalagemListForm:viewButton :EmbalagemListForm:editButton :EmbalagemListForm:deleteButton :EmbalagemListForm:EmbalagemDataTableContextMenu" listener="#{embalagemController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":EmbalagemListForm:createButton :EmbalagemListForm:viewButton :EmbalagemListForm:editButton :EmbalagemListForm:deleteButton :EmbalagemListForm:EmbalagemDataTableContextMenu" listener="#{embalagemController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('EmbalagemListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idEmbalgem}" filterBy="#{item.idEmbalgem}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmbalagemTitle_idEmbalgem}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEmbalgem}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.capacidade}" filterBy="#{item.capacidade}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmbalagemTitle_capacidade}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.capacidade}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.especeficacao}" filterBy="#{item.especeficacao}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmbalagemTitle_especeficacao}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.especeficacao}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.condicoes}" filterBy="#{item.condicoes}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmbalagemTitle_condicoes}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.condicoes}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dtfabricacao}" filterBy="#{item.dtfabricacao}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmbalagemTitle_dtfabricacao}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dtfabricacao}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.certificado}" filterBy="#{item.certificado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmbalagemTitle_certificado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.certificado}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.validadecert}" filterBy="#{item.validadecert}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEmbalagemTitle_validadecert}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.validadecert}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.valorunitario}" filterBy="#{item.valorunitario}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEmbalagemTitle_valorunitario}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.valorunitario}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.compatibilidade}" filterBy="#{item.compatibilidade}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEmbalagemTitle_compatibilidade}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.compatibilidade}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.grupo}" filterBy="#{item.grupo}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEmbalagemTitle_grupo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.grupo}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.tipoMaterial}" filterBy="#{item.tipoMaterial}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEmbalagemTitle_tipoMaterial}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.tipoMaterial}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.tipoEmbalagemidTipoEmbalagem.idTipoEmbalagem}" filterBy="#{item.tipoEmbalagemidTipoEmbalagem.idTipoEmbalagem}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEmbalagemTitle_tipoEmbalagemidTipoEmbalagem}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.tipoEmbalagemidTipoEmbalagem.idTipoEmbalagem}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.materialidMaterial.idMaterial}" filterBy="#{item.materialidMaterial.idMaterial}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEmbalagemTitle_materialidMaterial}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.materialidMaterial.idMaterial}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.grupoembalagemidGrupoembalagem.idGrupoembalagem}" filterBy="#{item.grupoembalagemidGrupoembalagem.idGrupoembalagem}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEmbalagemTitle_grupoembalagemidGrupoembalagem}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.grupoembalagemidGrupoembalagem.idGrupoembalagem}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idClasse.descricao}" filterBy="#{item.idClasse.descricao}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEmbalagemTitle_idClasse}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idClasse.descricao}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{embalagemController.prepareCreate}" update=":EmbalagemCreateForm" oncomplete="EmbalagemCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":EmbalagemViewForm" oncomplete="EmbalagemViewDialog.show()" disabled="#{empty embalagemController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":EmbalagemEditForm" oncomplete="EmbalagemEditDialog.show()" disabled="#{empty embalagemController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{embalagemController.delete}" update=":growl,datalist" disabled="#{empty embalagemController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

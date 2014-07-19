@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PaisEditDlg" widgetVar="PaisEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPaisTitle}" closeOnEscape="true">
+
+            <h:form id="PaisEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{paisController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditPaisLabel_codPais}" for="codPais" />
+                        <h:outputText id="codPais" value="#{paisController.selected.codPais}" />
+
+                        <p:outputLabel value="#{myBundle.EditPaisLabel_sglPais}" for="sglPais" />
+                        <p:inputText id="sglPais" value="#{paisController.selected.sglPais}" title="#{myBundle.EditPaisTitle_sglPais}" required="true" requiredMessage="#{myBundle.EditPaisRequiredMessage_sglPais}" size="2" maxlength="2"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaisLabel_nomPais}" for="nomPais" />
+                        <p:inputText id="nomPais" value="#{paisController.selected.nomPais}" title="#{myBundle.EditPaisTitle_nomPais}" required="true" requiredMessage="#{myBundle.EditPaisRequiredMessage_nomPais}" size="30" maxlength="30"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paisController.save}" value="#{myBundle.Save}" update="display,:PaisListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PaisEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PaisEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalheNotaViewDlg" widgetVar="DetalheNotaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewDetalheNotaTitle}" closeOnEscape="true">
+
+            <h:form id="DetalheNotaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{detalheNotaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_idDetalheNota}"/>
+                        <h:outputText value="#{detalheNotaController.selected.idDetalheNota}" title="#{myBundle.ViewDetalheNotaTitle_idDetalheNota}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_numNota}"/>
+                        <h:outputText value="#{detalheNotaController.selected.numNota}" title="#{myBundle.ViewDetalheNotaTitle_numNota}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_dtPedido}"/>
+                        <h:outputText value="#{detalheNotaController.selected.dtPedido}" title="#{myBundle.ViewDetalheNotaTitle_dtPedido}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_valorTotal}"/>
+                        <h:outputText value="#{detalheNotaController.selected.valorTotal}" title="#{myBundle.ViewDetalheNotaTitle_valorTotal}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_valorUnitario}"/>
+                        <h:outputText value="#{detalheNotaController.selected.valorUnitario}" title="#{myBundle.ViewDetalheNotaTitle_valorUnitario}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_qtdProduto}"/>
+                        <h:outputText value="#{detalheNotaController.selected.qtdProduto}" title="#{myBundle.ViewDetalheNotaTitle_qtdProduto}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_idProduto}"/>
+                        <h:outputText value="#{detalheNotaController.selected.idProduto}" title="#{myBundle.ViewDetalheNotaTitle_idProduto}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_nomeProduto}"/>
+                        <h:outputText value="#{detalheNotaController.selected.nomeProduto}" title="#{myBundle.ViewDetalheNotaTitle_nomeProduto}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_compatibilidade}"/>
+                        <h:outputText value="#{detalheNotaController.selected.compatibilidade}" title="#{myBundle.ViewDetalheNotaTitle_compatibilidade}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_tipoEquipamentoidTipoEquipamento}"/>
+                        <h:outputText value="#{detalheNotaController.selected.tipoEquipamentoidTipoEquipamento.idTipoEquipamento}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_fornecedoridFornecedor}"/>
+                        <h:outputText value="#{detalheNotaController.selected.fornecedoridFornecedor.idFornecedor}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_embalagemidEmbalgem}"/>
+                        <h:outputText value="#{detalheNotaController.selected.embalagemidEmbalgem.idEmbalgem}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalheNotaLabel_idClasse}"/>
+                        <h:outputText value="#{detalheNotaController.selected.idClasse.descricao}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="DetalheNotaViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
